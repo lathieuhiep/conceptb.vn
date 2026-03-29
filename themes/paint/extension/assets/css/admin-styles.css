@@ -1,0 +1,12 @@
+/* metabox option */
+.custom-column-display-price {
+  color: #ff0000;
+}
+
+.cmb2-postbox .cmb2-wrap input.cmb2-text-medium {
+  width: 25em;
+}
+
+.cmb-field-list .cmb-row .cmb-td > div:not(:last-child) {
+  margin-bottom: 10px;
+}
