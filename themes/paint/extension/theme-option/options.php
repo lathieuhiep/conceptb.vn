@@ -655,6 +655,20 @@ if (class_exists('CSF')) {
         )
     ));
 
+    // footer copyright
+    CSF::createSection($paint_prefix, array(
+        'parent' => 'parent_footer',
+        'title' => esc_html__('Copyright', 'paint'),
+        'fields' => array(
+            array(
+                'id' => 'paint_opt_footer_copyright',
+                'type' => 'wp_editor',
+                'title' => esc_html__('Copyright content', 'paint'),
+                'default' => esc_html__('@copyright 2025 all right reserved by BeeColor Viet Nam', 'paint'),
+            ),
+        )
+    ));
+
     // -> End create a section footer
 
 }
