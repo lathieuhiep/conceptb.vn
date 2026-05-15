@@ -1,4 +1,6 @@
 <?php
+use ExtendSite\Admin\Fields\Product\ProductMediaTab;
+
 $opt_cat = paint_get_option('template_home_opt_product_cat', '');
 $opt_limit = paint_get_option('template_home_opt_product_limit', 10);
 $opt_order_by = paint_get_option('template_home_opt_product_order_by', 'id');
@@ -34,7 +36,7 @@ if ($query->have_posts()) :
       while ($query->have_posts()):
         $query->the_post();
 
-        $image_hover = get_post_meta(get_the_ID(), 'paint_cmb_product_image_feature_hover_id', true);
+        $image_hover = class_exists(ProductMediaTab::class) ? ProductMediaTab::get_image_hover_id(get_the_ID()) : 0;
         ?>
         <div class="col item">
           <div class="thumbnail">

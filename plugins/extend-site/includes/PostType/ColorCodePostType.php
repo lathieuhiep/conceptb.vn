@@ -18,7 +18,7 @@ class ColorCodePostType extends BasePostType
     {
         parent::__construct($args);
 
-        add_action('cmb2_admin_init', [$this, 'register_fields']);
+        add_action('carbon_fields_register_fields', [$this, 'register_fields']);
     }
 
     protected function register_taxonomies(): void

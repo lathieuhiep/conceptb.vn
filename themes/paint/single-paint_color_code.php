@@ -1,4 +1,8 @@
-<?php get_header(); ?>
+<?php
+use ExtendSite\Admin\Fields\ColorCode\ColorCodeStandardTab;
+
+get_header();
+?>
 
 <div class="site-single-color-code-warp">
     <div class="container">
@@ -6,8 +10,8 @@
         while (have_posts()) :
             the_post();
 
-            $color_code_name = get_post_meta(get_the_ID(), 'paint_cmb_color_code_name', true);
-            $color_code_list = get_post_meta(get_the_ID(), 'paint_cmb_color_code_standard', true);
+            $color_code_name = class_exists(ColorCodeStandardTab::class) ? ColorCodeStandardTab::get_name(get_the_ID()) : '';
+            $color_code_list = class_exists(ColorCodeStandardTab::class) ? ColorCodeStandardTab::get_standard(get_the_ID()) : [];
         ?>
 
         <h1 class="title">

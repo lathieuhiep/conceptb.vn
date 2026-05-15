@@ -12,13 +12,6 @@ defined('ABSPATH') || exit;
 
 class ProductFields
 {
-    public const IMAGE_HOVER = ProductMediaTab::IMAGE_HOVER;
-    public const CODE = ProductGeneralTab::CODE;
-    public const COLOR = ProductGeneralTab::COLOR;
-    public const IMAGE_GALLERY = ProductMediaTab::IMAGE_GALLERY;
-    public const GALLERY = ProductGalleryTab::GALLERY;
-    public const CONSTRUCTION_PROCESS = ProductConstructionTab::CONSTRUCTION_PROCESS;
-
     public static function register(string $post_type): void
     {
         Container::make('post_meta', esc_html__('Ảnh phụ', 'extend-site'))
@@ -47,15 +40,5 @@ class ProductFields
                 esc_html__('Quy trình thi công', 'extend-site'),
                 ProductConstructionTab::fields()
             );
-    }
-
-    public static function get_data(int $post_id): array
-    {
-        return [
-            'general' => ProductGeneralTab::get_data($post_id),
-            'media' => ProductMediaTab::get_data($post_id),
-            'gallery' => ProductGalleryTab::get_data($post_id),
-            'construction' => ProductConstructionTab::get_data($post_id),
-        ];
     }
 }

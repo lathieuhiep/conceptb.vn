@@ -1,4 +1,6 @@
 <?php
+use ExtendSite\Admin\Fields\ColorCode\ColorCodeStandardTab;
+
 // get version theme
 function paint_get_version_theme(): string {
     return wp_get_theme()->get( 'Version' );
@@ -381,12 +383,13 @@ add_action('wp_ajax_paint_get_color_code_standard', 'paint_get_color_code_standa
 function paint_get_color_code_standard()
 {
     $idColorCode = (int)$_POST['idColorCode'];
-    $key = $_POST['key'];
+    $key = isset($_POST['key']) ? (int) $_POST['key'] : -1;
 
-    $color_code_list = get_post_meta($idColorCode, 'paint_cmb_color_code_standard', true);
+    $itemCode = class_exists(ColorCodeStandardTab::class)
+        ? ColorCodeStandardTab::get_standard_item($idColorCode, $key)
+        : [];
 
-    if ( $color_code_list ) {
-        $itemCode = $color_code_list[$key];
+    if ( $itemCode ) {
 ?>
         <div class="box-full-color">
             <?php

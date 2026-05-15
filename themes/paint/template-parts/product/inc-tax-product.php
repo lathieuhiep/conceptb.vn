@@ -1,6 +1,7 @@
 <?php
-$image_hover = get_post_meta(get_the_ID(), 'paint_cmb_product_image_feature_hover', true);
-$color_board = (int)get_post_meta(get_the_ID(), 'paint_cmb_options_product_color', true);
+use ExtendSite\Admin\Fields\Product\ProductMediaTab;
+
+$image_hover = class_exists(ProductMediaTab::class) ? ProductMediaTab::get_image_hover_id(get_the_ID()) : 0;
 ?>
 
 <div class="item">
@@ -17,7 +18,7 @@ $color_board = (int)get_post_meta(get_the_ID(), 'paint_cmb_options_product_color
 
         <?php if ( $image_hover ) : ?>
             <div class="secondary-image">
-                <img src="<?php echo esc_url( $image_hover ); ?>" alt="<?php the_title() ?>" width="768">
+                <?php echo wp_get_attachment_image($image_hover, 'large'); ?>
             </div>
         <?php endif; ?>
     </div>

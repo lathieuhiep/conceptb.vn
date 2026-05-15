@@ -18,5 +18,6 @@ class MigrationManager
         }
 
         ProductCmbToCarbonMigration::run();
+        ColorCodeCmbToCarbonMigration::run();
     }
 }

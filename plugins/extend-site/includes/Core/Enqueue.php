@@ -3,7 +3,6 @@ namespace ExtendSite\Core;
 
 use ExtendSite\Constants\Config;
 use ExtendSite\Helpers\ESHelpers;
-use ExtendSite\PostType\PortfolioPostType;
 
 defined('ABSPATH') || exit;
 
@@ -63,13 +62,5 @@ class Enqueue
             );
         }
 
-        if ( is_singular(PortfolioPostType::SLUG) ) {
-            // load portfolio style
-            wp_enqueue_style('es-single-portfolio',
-                Config::$url . 'assets/css/frontend/post-type/portfolio/single-portfolio.min.css',
-                [],
-                Config::VERSION
-            );
-        }
     }
 }

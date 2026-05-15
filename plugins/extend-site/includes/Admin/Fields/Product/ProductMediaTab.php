@@ -100,7 +100,41 @@ class ProductMediaTab implements FieldTabIF
             return 0;
         }
 
-        return (int) attachment_url_to_postid($image_url);
+        return self::attachment_id_from_url($image_url);
+    }
+
+    private static function attachment_id_from_url(string $image_url): int
+    {
+        $image_id = (int) attachment_url_to_postid($image_url);
+
+        if ($image_id) {
+            return $image_id;
+        }
+
+        $path = wp_parse_url($image_url, PHP_URL_PATH);
+
+        if (!is_string($path) || $path === '') {
+            return 0;
+        }
+
+        $uploads_pos = strpos($path, '/wp-content/uploads/');
+
+        if ($uploads_pos === false) {
+            return 0;
+        }
+
+        $attached_file = ltrim(substr($path, $uploads_pos + strlen('/wp-content/uploads/')), '/');
+
+        if ($attached_file === '') {
+            return 0;
+        }
+
+        global $wpdb;
+
+        return (int) $wpdb->get_var($wpdb->prepare(
+            "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_wp_attached_file' AND meta_value = %s LIMIT 1",
+            $attached_file
+        ));
     }
 
     private static function normalize_attachment_ids(array $ids): array

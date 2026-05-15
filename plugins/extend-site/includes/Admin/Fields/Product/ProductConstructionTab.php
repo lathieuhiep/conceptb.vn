@@ -61,9 +61,15 @@ class ProductConstructionTab implements FieldTabIF
                 continue;
             }
 
+            $content = isset($row['content']) ? (string) $row['content'] : '';
+
+            if (trim($content) === '') {
+                continue;
+            }
+
             $normalized[] = [
                 'step' => sprintf(esc_html__('Bước %d', 'extend-site'), $index + 1),
-                'content' => isset($row['content']) ? (string) $row['content'] : '',
+                'content' => $content,
             ];
         }
 

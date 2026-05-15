@@ -3,6 +3,7 @@
 use Elementor\Group_Control_Typography;
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
+use ExtendSite\Admin\Fields\Product\ProductMediaTab;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -271,7 +272,7 @@ class Paint_Elementor_Product_Grid extends Widget_Base {
             while ( $query->have_posts() ):
                 $query->the_post();
 
-                $image_hover = get_post_meta(get_the_ID(), 'paint_cmb_product_image_feature_hover', true);
+                $image_hover = class_exists(ProductMediaTab::class) ? ProductMediaTab::get_image_hover_id(get_the_ID()) : 0;
             ?>
             <div class="item">
                 <a class="item__link" href="<?php the_permalink(); ?>"></a>
@@ -287,7 +288,7 @@ class Paint_Elementor_Product_Grid extends Widget_Base {
 
                     <?php if ( $image_hover ) : ?>
                         <div class="secondary-image">
-                            <img src="<?php echo esc_url( $image_hover ); ?>" alt="<?php the_title() ?>" width="768">
+                            <?php echo wp_get_attachment_image($image_hover, 'large'); ?>
                         </div>
                     <?php endif; ?>
                 </div>

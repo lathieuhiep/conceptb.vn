@@ -74,6 +74,10 @@ class ProductGalleryTab implements FieldTabIF
                 $image_id = (int) $row['image_id'];
             }
 
+            if (!$image_id) {
+                continue;
+            }
+
             $normalized[] = [
                 'style' => !empty($row['style']) ? (string) $row['style'] : 'normal',
                 'image_id' => $image_id,

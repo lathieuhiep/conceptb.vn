@@ -2,6 +2,7 @@
 
 use Elementor\Widget_Base;
 use Elementor\Controls_Manager;
+use ExtendSite\Admin\Fields\ColorCode\ColorCodeStandardTab;
 
 if ( ! defined( 'ABSPATH' ) ) exit;
 
@@ -307,7 +308,16 @@ class Paint_Elementor_Color_Code_Carousel extends Widget_Base {
         }
 
         $post = get_post( $settings['post_selector'] );
-        $color_code_list = get_post_meta($post->ID, 'paint_cmb_color_code_standard', true);
+
+        if ( ! $post ) {
+            return;
+        }
+
+        $color_code_list = class_exists(ColorCodeStandardTab::class) ? ColorCodeStandardTab::get_standard($post->ID) : [];
+
+        if ( empty( $color_code_list ) ) {
+            return;
+        }
 
         $owl_options = [
             'loop' => ('yes' === $settings['loop']),
