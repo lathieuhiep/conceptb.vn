@@ -10,7 +10,12 @@ class PostTypeManager
      * Danh sách các Class Post Type cần khởi tạo
      */
     protected static array $post_types = [
-        PortfolioPostType::class
+        ProductPostType::class,
+        ColorCodePostType::class,
+        ToolPostType::class,
+        ProjectPostType::class,
+        DiscoverPostType::class,
+        FaqPostType::class,
     ];
 
     /**

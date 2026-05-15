@@ -20,22 +20,9 @@ require get_theme_file_path('extension/theme-option/options.php');
 // Required: Theme action filter
 require get_parent_theme_file_path('/includes/theme-action-filter.php');
 
-// Required: Post type
-require get_parent_theme_file_path('/extension/post-type/product.php');
-require get_parent_theme_file_path('/extension/post-type/color-code.php');
-require get_parent_theme_file_path('/extension/post-type/tool.php');
-require get_parent_theme_file_path('/extension/post-type/project.php');
-require get_parent_theme_file_path('/extension/post-type/discover.php');
-require get_parent_theme_file_path('/extension/post-type/faq.php');
-
 // Required: CMB2
 if (!class_exists('CMB2')) {
   require get_parent_theme_file_path('/extension/meta-box/cmb_post.php');
-  require get_parent_theme_file_path('/extension/meta-box/cmb_product.php');
-  require get_parent_theme_file_path('/extension/meta-box/cmb_color_code.php');
-  require get_parent_theme_file_path('/extension/meta-box/cmb_tool.php');
-  require get_parent_theme_file_path('/extension/meta-box/cmb_project.php');
-  require get_parent_theme_file_path('/extension/meta-box/cmb_discover.php');
 
   // add fields custom
   require get_parent_theme_file_path('/extension/meta-box/add-fields/address.php');
