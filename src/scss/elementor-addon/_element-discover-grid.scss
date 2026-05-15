@@ -1,0 +1,22 @@
+.element-discover-grid {
+  &__warp {
+    display: grid;
+    grid-auto-rows: min-content;
+
+    .item {
+      @include transition();
+
+      .link {
+        display: block;
+
+        img {
+          width: 100%;
+        }
+      }
+
+      &:hover {
+        box-shadow: 0 .3rem .5rem #888888;
+      }
+    }
+  }
+}

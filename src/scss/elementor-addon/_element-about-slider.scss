@@ -1,0 +1,76 @@
+.element-about-slider {
+  &__warp {
+    .item {
+      position: relative;
+
+      &__thumbnail {
+        position: relative;
+        border-radius: 1rem;
+        overflow: hidden;
+
+        &:before {
+          position: absolute;
+          content: "";
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: rgba(0,0,0,0.34);
+        }
+      }
+
+      &__body {
+        position: absolute;
+        left: 0;
+        right: 0;
+        bottom: 2rem;
+        text-align: center;
+
+        .title-box {
+          margin: 0;
+          font-size: 1.6rem;
+
+          .link {
+            padding: .6rem 1.6rem .8rem;
+            display: inline-block;
+            border: .1rem solid #FDCD26;
+            background-color: #ffffff;
+
+            &:hover {
+              color: #000;
+              background-color: #FDCD26;
+            }
+          }
+        }
+      }
+    }
+
+    &.owl-carousel {
+      .owl-nav {
+        margin: 0;
+
+        button {
+          position: absolute;
+          top: 50%;
+          margin: 0;
+          text-align: center;
+          color: $color-hover;
+          font-size: 3rem;
+          transform: translateY(-50%);
+
+          &.owl-prev {
+            left: 1.2rem;
+          }
+
+          &.owl-next {
+            right: 1.2rem;
+          }
+
+          &:hover {
+            color: #000000;
+          }
+        }
+      }
+    }
+  }
+}

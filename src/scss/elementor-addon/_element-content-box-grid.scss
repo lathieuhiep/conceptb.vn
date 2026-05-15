@@ -1,0 +1,39 @@
+.element-content-box-grid {
+  display: grid;
+  grid-auto-rows: min-content;
+
+  .item {
+    position: relative;
+    padding: 1.2rem;
+    min-height: 17.5rem;
+    text-align: center;
+    border: 1px solid $color-secondary;
+    border-radius: 2rem;
+    overflow: hidden;
+    @include flex-center();
+    @include transition();
+
+    &:before {
+      position: absolute;
+      content: "";
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      opacity: 0;
+      box-shadow: inset 0 16px 10px -10px rgba(0,0,0,.25);
+      background: linear-gradient(to bottom, #FFFFFF 45%, #FDCD26 100%);
+      @include transition();
+    }
+
+    &:hover {
+      &:before {
+        opacity: 1;
+      }
+    }
+
+    &__content {
+      position: relative;
+    }
+  }
+}

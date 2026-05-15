@@ -1,0 +1,258 @@
+@import "../variables-site/variables";
+
+.spinner-loading {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 1px;
+  z-index: 9999;
+  background-color: rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.user-warp {
+  flex: 1 0 auto;
+  display: flex;
+  align-items: center;
+
+  .grid {
+    display: grid;
+
+    @media (min-width: 992px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 5rem 10rem;
+    }
+
+    @media (max-width: 991px) {
+      grid-gap: 3rem;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+      grid-template-columns: 25rem 1fr;
+    }
+
+    &__item {
+      position: relative;
+
+      ~ .grid__item {
+        &:before {
+          position: absolute;
+          content: "";
+          top: 0;
+          left: -5rem;
+          bottom: 0;
+          width: .2rem;
+          background-color: $color-secondary;
+        }
+      }
+
+      .page-title {
+        padding-bottom: 1.6rem;
+        position: relative;
+        font-size: 3.2rem;
+
+        &:after {
+          position: absolute;
+          content: "";
+          width: 10rem;
+          height: .2rem;
+          bottom: 0;
+          left: 0;
+          background-color: $color-secondary;
+        }
+      }
+    }
+  }
+
+  .form-user {
+    .grid-control {
+      ~ .grid-control {
+        margin-top: 2.4rem;
+      }
+
+      .form-control {
+        padding: 1rem 1.2rem;
+        height: auto;
+        font-size: inherit;
+        font-weight: inherit;
+        background-color: #D9D9D8;
+
+        &:focus {
+          border-color: #ced4da;
+          box-shadow: none;
+          color: rgba(0, 0, 0, 0.6);
+          background-color: $color-white;
+        }
+      }
+
+      .box-lost-password {
+        a {
+          color: #0056D1;
+        }
+      }
+
+      .btn-submit {
+        padding: .8rem 2.8rem;
+        font-size: inherit;
+        color: $color-primary;
+        background-color: $color-secondary;
+        @include transition();
+
+        &:hover {
+          color: $color-white;
+          background-color: $color-primary;
+        }
+      }
+    }
+
+    .grid-control-full-name {
+      display: grid;
+      grid-gap: 2.4rem;
+      grid-template-columns: repeat(2, 1fr);
+    }
+
+    .grid-control-submit {
+      padding-top: 3.6rem;
+    }
+
+    .not-account {
+      margin-top: 3rem;
+
+      a {
+        color: #FAC832;
+
+        &:hover {
+          color: $color-primary;
+        }
+      }
+    }
+  }
+
+  &.login-warp {
+    .grid {
+      &__item {
+        &:before {
+          display: none;
+        }
+      }
+    }
+
+    .form-user {
+      padding: 3.6rem 1.6rem;
+      border: 2px solid #000000;
+      border-radius: .5rem;
+    }
+  }
+}
+
+#modalChangedPasswordSuccess {
+  .modal-dialog {
+    .modal-content {
+      border-radius: 0;
+
+      @media (min-width: 576px) {
+        max-width: 40rem;
+      }
+
+      .modal-header {
+        padding: 3.6rem 1.6rem 2rem;
+      }
+
+      .modal-title {
+        font-size: 2rem;
+      }
+
+      .modal-body {
+        padding: 1.6rem 1.6rem 3.6rem;
+
+        .btn-action {
+          padding: .8rem 1rem;
+          color: $color-primary;
+          font-size: 1.5rem;
+          font-weight: 700;
+          background-color: $color-secondary;
+
+          ~ .btn-action {
+            margin-top: 2.8rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+// template user saved
+.tab-user-saved {
+  margin-bottom: 4rem;
+
+  .nav-item {
+    position: relative;
+    font-weight: 700;
+    font-size: 1.8rem;
+
+    ~ .nav-item {
+      margin-left: 6rem;
+      padding-left: 6rem;
+
+      &:before {
+        position: absolute;
+        content: "";
+        top: 55%;
+        left: 0;
+        width: .2rem;
+        height: 1.6rem;
+        background-color: $color-primary;
+        @include transform(translateY(-50%));
+      }
+    }
+  }
+}
+
+.grid-masonry-warp {
+  margin: 0 -1.2rem;
+
+  .item {
+    margin-bottom: 12px;
+    padding: 0 1.2rem;
+
+    @media (min-width: 992px) {
+      width: 25%;
+    }
+
+    @media (min-width: 576px) and (max-width: 991px) {
+      width: 33.33333333%;
+    }
+
+    @media (max-width: 575px) {
+      width: 50%;
+    }
+
+    img {
+      width: 100%;
+    }
+
+    .thumbnail-image {
+      margin-bottom: 12px;
+      overflow: hidden;
+      border-radius: 12px;
+    }
+
+    .title {
+      margin-bottom: 2px;
+      font-size: 1.2rem;
+    }
+
+    .meta {
+      font-size: 1.9rem;
+    }
+
+    .view-detail {
+      margin-bottom: 0;
+      cursor: pointer;
+      font-size: 1.6rem;
+    }
+  }
+}

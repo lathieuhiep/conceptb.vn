@@ -1,0 +1,11 @@
+@import "../../variables-site/variables";
+
+@import "../../components/product-grid-cat";
+
+.site-product-cat {
+  padding: 3.3rem 0;
+
+  .heading {
+    margin-bottom: 2.2rem;
+  }
+}

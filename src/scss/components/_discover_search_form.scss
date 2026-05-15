@@ -1,0 +1,46 @@
+.site-discover-warp {
+  padding-top: 5rem;
+
+  .search-form {
+    .group-check {
+      &__item {
+        .btn {
+          padding: 0;
+          color: #231F20;
+          font-size: 1.8rem;
+          border: none;
+          background-color: transparent;
+          @include transition();
+
+          &:hover {
+            color: $color-secondary;
+          }
+        }
+
+        .btn-check:checked + .btn {
+          color: $color-secondary;
+        }
+
+        &:first-child {
+          .btn {
+            text-transform: uppercase;
+          }
+        }
+      }
+    }
+
+    @media screen and (min-width: 992px) {
+      .search-field {
+        font-size: 1.8rem;
+        border: none;
+        border-radius: 0;
+        padding: 1rem 0 1rem 3rem;
+        background-color: transparent;
+      }
+
+      .search-submit {
+        width: auto;
+      }
+    }
+  }
+}

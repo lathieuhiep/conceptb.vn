@@ -1,0 +1,177 @@
+.project-layout {
+  .item {
+    position: relative;
+
+    .thumbnail {
+      @include transition();
+
+      &:hover {
+        @include box-shadow(0px 20px 30px rgb(0, 0, 0, 0.5));
+      }
+
+      .link-image {
+        display: block;
+        height: 52rem;
+
+        @media(min-width: 992px) {
+          height: 52rem;
+        }
+
+        @media (max-width: 991px) {
+          height: 32rem;
+        }
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+    }
+
+    .content-box {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+      @include transition();
+
+      &__top {
+        position: absolute;
+        padding: 2.4rem 3rem;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0,0,0,0.5);
+        @include transition();
+
+        &:before {
+          position: absolute;
+          content: "";
+          top: 1.2rem;
+          left: 1.6rem;
+          right: 1.6rem;
+          bottom: 1.2rem;
+          border: 1px solid $color-white;
+        }
+      }
+
+      .title {
+        position: relative;
+        margin: 0;
+        font-weight: 400;
+
+        @media (min-width: 1400px) {
+          font-size: 1.8rem;
+        }
+
+        @media (max-width: 1399px) {
+          font-size: 1.5rem;
+        }
+
+        a {
+          display: inline-block;
+          color: $color-secondary;
+        }
+      }
+
+      .line {
+        position: relative;
+        width: 0;
+        height: 0;
+        background-color: $color-secondary;
+      }
+
+      .tax {
+        position: relative;
+        text-align: center;
+        opacity: 0;
+        height: 0;
+        visibility: hidden;
+
+        a {
+          position: relative;
+          color: $color-white;
+          font-size: 0;
+
+          &:hover {
+            color: $color-secondary;
+          }
+
+          ~ a {
+            &:before {
+              content: ",";
+            }
+          }
+        }
+      }
+
+      .link-detail {
+        display: inline-block;
+        color: $color-black;
+        font-size: 0;
+        opacity: 0;
+        visibility: hidden;
+        background-color: $color-secondary;
+        @include transition()
+      }
+    }
+
+    &:hover {
+      .content-box {
+        padding-bottom: 1.6rem;
+        background-color: rgba(0,0,0,0.6);
+
+        &__top {
+          bottom: 50%;
+          background-color: transparent;
+          transform: translateY(50%);
+
+          &:before {
+            border-color: $color-secondary;
+          }
+        }
+
+        .title {
+          a {
+            color: $color-white;
+          }
+        }
+
+        .line {
+          margin: .5rem 0;
+          width: 100%;
+          height: 1px;
+          opacity: 1;
+          visibility: visible;
+          @include transition();
+        }
+
+        .tax {
+          opacity: 1;
+          visibility: visible;
+          font-size: inherit;
+          height: auto;
+          @include transition();
+
+          a {
+            font-size: inherit;
+          }
+        }
+
+        .link-detail {
+          padding: .6rem 1.2rem;
+          opacity: 1;
+          visibility: visible;
+          font-size: inherit;
+        }
+      }
+    }
+  }
+}

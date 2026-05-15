@@ -1,0 +1,79 @@
+.tool-list-grid {
+  .slick-list {
+    margin: 0 -2.25rem;
+  }
+
+  .slick-slide {
+    margin: 0 2.25rem 0.8rem;
+  }
+
+  .item {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    background-color: #ffffff;
+    @include box-shadow();
+
+    &__thumbnail {
+      position: relative;
+
+      .icon-image {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        width: 33px;
+        height: 33px;
+        overflow: hidden;
+        border-radius: 4px;
+        background-color: $background-tertiary;
+        @include flexbox();
+        @include align-items(center);
+        @include justify-content(center);
+      }
+    }
+
+    &__info {
+      padding: 10px 12px;
+      display: grid;
+      grid-gap: 12px;
+      grid-template-columns: 166px 1fr;
+      background-color: rgba(0, 0, 0, 0.1);
+
+      .left-box {
+        overflow: hidden;
+      }
+
+      .title {
+        margin-bottom: 0;
+        font-size: 1.2rem;
+        font-weight: 600;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        a {
+          &:hover {
+            color: $background-tertiary;
+          }
+        }
+      }
+
+      .meta {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        a {
+          font-size: 1.2rem;
+          color: #575757;
+        }
+      }
+
+      .right-box {
+        text-align: right;
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #575757;
+      }
+    }
+  }
+}

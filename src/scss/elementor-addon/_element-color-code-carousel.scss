@@ -1,0 +1,59 @@
+.element-color-code-carousel {
+  &__warp {
+    margin-bottom: 2.3rem;
+
+    .item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 1rem;
+
+      &__thumbnail {
+        overflow: hidden;
+        border-radius: 1rem;
+      }
+
+      &__body {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        opacity: 0;
+        visibility: hidden;
+        @include flex-center();
+        @include transition();
+
+        &:before {
+          position: absolute;
+          content: "";
+          top: 0;
+          right: 0;
+          bottom: 0;
+          left: 0;
+          background-color: rgba(0,0,0,0.3);
+        }
+
+        .title {
+          position: relative;
+          margin: 0;
+          color: #ffffff;
+          font-size: 1.6rem;
+        }
+      }
+
+      &:hover {
+        .item__body {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
+  }
+
+  .action-box {
+    .link {
+      padding: 0.5rem 1.5rem;
+      font-size: 1.6rem;
+    }
+  }
+}

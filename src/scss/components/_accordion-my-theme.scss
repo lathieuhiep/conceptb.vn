@@ -1,0 +1,47 @@
+.accordion {
+  &.accordion-my-theme {
+    .accordion-item {
+      margin-bottom: 16px;
+      border: 0;
+      background-color: #ffffff;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    .accordion-header {
+      .accordion-button {
+        padding: 18px 25px;
+        font-size: 2rem;
+        font-weight: 700;
+        color: $color-primary;
+        border: 0;
+        box-shadow: none;
+        border-radius: 0;
+        background-color: $background-hover;
+
+        &::before {
+          margin-right: 20px;
+          content: "\2b";
+          font-size: 1.6rem;
+          font-family: "Font Awesome 6 Free", serif;
+        }
+
+        &:not(.collapsed) {
+          &::before {
+            content: "\f068";
+          }
+        }
+
+        &:after {
+          display: none;
+        }
+      }
+    }
+
+    .accordion-body {
+      padding: 26px 60px;
+    }
+  }
+}

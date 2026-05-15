@@ -1,8 +1,10 @@
 <?php
+use ExtendSite\Admin\Fields\Product\ProductGalleryTab;
+
 $idProduct = $args['idProduct'] ?? '';
 
 if ($idProduct) :
-  $gallery = get_post_meta($idProduct, 'paint_cmb_product_gallery', true);
+  $gallery = class_exists(ProductGalleryTab::class) ? ProductGalleryTab::get_gallery((int) $idProduct) : [];
 
   if (!empty($gallery)) :
   ?>

@@ -1,0 +1,22 @@
+.element-heading-between-line {
+  display: flex;
+  flex-direction: column;
+
+  &__warp {
+    display: flex;
+    gap: 1.8rem;
+    align-items: center;
+
+    .line {
+      flex: 1;
+      height: 1px;
+      min-width: 3rem;
+      background-color: #000000;
+    }
+
+    .heading {
+      margin: 0;
+      width: max-content;
+    }
+  }
+}

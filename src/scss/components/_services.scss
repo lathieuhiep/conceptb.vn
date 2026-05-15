@@ -1,0 +1,38 @@
+.element-service {
+  padding-top: 24px;
+  padding-bottom: 36px;
+
+  .box-warp {
+    display: grid;
+    grid-gap: 24px 48px;
+    grid-template-columns: minmax(auto, 279px) 1fr;
+    align-items: center;
+  }
+
+  .right-box {
+    display: grid;
+    grid-gap: 88px 52px;
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .item {
+    display: grid;
+    grid-gap: 21px;
+    grid-template-columns: max-content 1fr;
+
+    .icon-box {
+      width: 96px;
+      height: 96px;
+      line-height: 96px;
+      text-align: center;
+      border-radius: 50%;
+      background-color: $background-hover;
+    }
+
+    .content {
+      font-size: 1.5rem;
+      color: #1E1E1E;
+      line-height: 1.4;
+    }
+  }
+}

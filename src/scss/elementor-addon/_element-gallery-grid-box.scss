@@ -1,0 +1,48 @@
+.element-gallery-grid-box {
+  &__warp {
+    display: grid;
+    grid-auto-rows: min-content;
+
+    .item {
+      display: flex;
+      flex-direction: column;
+
+      &__thumbnail {
+        position: relative;
+        overflow: hidden;
+
+        .image-box {
+          margin-bottom: 2rem;
+          overflow: hidden;
+        }
+
+        img {
+          object-fit: cover;
+        }
+      }
+
+      &__body {
+        flex: 1;
+
+        .title {
+          margin-bottom: .6rem;
+          color: #000000;
+          font-size: 1.7rem;
+          font-weight: 500;
+
+          @media (max-width: 1199px) {
+            font-size: 1.6rem;
+          }
+        }
+
+        .content {
+          line-height: 1.5;
+
+          a {
+            color: var(--color-sunset-orange);
+          }
+        }
+      }
+    }
+  }
+}

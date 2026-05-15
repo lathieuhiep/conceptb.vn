@@ -1,0 +1,22 @@
+.element-about {
+  .title {
+    margin-bottom: 3.2rem;
+    font-weight: 600;
+  }
+
+  .desc {
+    font-size: 1.4rem;
+    color: #5C5C5C;
+  }
+}
+
+.element-about-gallery {
+  display: grid;
+  grid-row-gap: 10px;
+
+  .item {
+    img {
+      width: 100%;
+    }
+  }
+}

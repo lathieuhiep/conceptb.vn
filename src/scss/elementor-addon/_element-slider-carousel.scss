@@ -1,0 +1,11 @@
+.element-slider-carousel {
+  .item {
+    &__thumbnail {
+      display: flex;
+
+      img {
+        width: auto;
+      }
+    }
+  }
+}

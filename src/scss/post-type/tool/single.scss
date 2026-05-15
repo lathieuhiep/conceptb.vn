@@ -1,0 +1,132 @@
+@import "../../variables-site/variables";
+
+@import "../../components/tool_cat_grid";
+
+.site-single-tool {
+  .entry-post {
+    &__box {
+      display: grid;
+      grid-gap: 25px;
+      grid-template-columns: 50% 1fr;
+    }
+
+    @media (max-width: 991px) {
+      margin-top: 3rem;
+    }
+  }
+
+  .entry-image {
+    .slider-nav {
+      margin-top: 1.6rem;
+
+      .slick-list {
+        margin: 0 -12px;
+      }
+
+      .slick-slide {
+        margin: 0 12px;
+      }
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .entry-content {
+    background-color: #ffffff;
+
+    .heading {
+      margin: 0;
+      padding: 1rem 1.8rem;
+      color: #ffffff;
+      font-size: 1.6rem;
+      background-color: #000000;
+    }
+
+    .info {
+      padding: 2.3rem 2.1rem;
+
+      &__top {
+        margin-bottom: 1.8rem;
+        display: grid;
+        grid-gap: 1.2rem;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+
+        .title {
+          margin-bottom: 0;
+          font-size: 1.6rem;
+        }
+
+        .meta {
+          margin-bottom: 1.5rem;
+          font-size: 1.4rem;
+        }
+
+        .money {
+          font-weight: 700;
+          color: #D72121;
+        }
+
+        .icon-image {
+          padding: .6rem;
+          font-size: 1.4rem;
+          color: #ffffff;
+          border-radius: .4rem;
+          background-color: $background-tertiary;
+          display: grid;
+          grid-column-gap: .5rem;
+          grid-template-columns: 2.2rem 1fr;
+          align-items: center;
+
+          img {
+            position: relative;
+            top: -0.2rem;
+          }
+        }
+      }
+
+      &__middle {
+        margin: 0;
+        padding: 0;
+        list-style: none;
+        font-size: 1.4rem;
+
+        li {
+          margin-bottom: 1.6rem;
+          padding-bottom: 1.2rem;
+          font-size: 1.5rem;
+          display: grid;
+          grid-gap: 1.2rem;
+          grid-template-columns: 1fr auto;
+          border-bottom: .1rem solid #A9A9A9;
+        }
+      }
+
+      &__bottom {
+        font-size: 1.5rem;
+        color: #6B6B6B;
+      }
+    }
+  }
+
+  .tool-related {
+    margin-top: 6rem;
+
+    .heading {
+      margin-bottom: 1.6rem;
+      text-transform: uppercase;
+    }
+
+    .slick-slide {
+      margin: 0 1.2rem;
+    }
+
+
+    .slick-list {
+      margin: 0 -1.2rem;
+      padding: 1.6rem 0 2.8rem;
+    }
+  }
+}

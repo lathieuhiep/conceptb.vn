@@ -1,10 +1,16 @@
 <?php
+use ExtendSite\Admin\Fields\Product\ProductGeneralTab;
+
 global $wp_query;
 
-$id_color_code_cat = get_post_meta(get_the_ID(), 'paint_cmb_options_product_color', true);
+$id_color_code_cat = class_exists(ProductGeneralTab::class) ? ProductGeneralTab::get_color_cat_id(get_the_ID()) : 0;
 
 if ($id_color_code_cat) :
     $term = get_term($id_color_code_cat, 'paint_color_code_cat');
+    if (!$term || is_wp_error($term)) {
+        return;
+    }
+
     $term_id = $term->term_id;
     $count = $term->count;
     $order_by = 'date';

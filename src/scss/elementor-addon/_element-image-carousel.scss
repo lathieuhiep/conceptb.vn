@@ -1,0 +1,29 @@
+.element-image-carousel {
+  &__warp {
+    .item {
+      @include transition();
+
+      &:hover {
+        box-shadow: 0 .3rem .5rem #888888;
+      }
+    }
+
+    &.owl-carousel {
+      .owl-stage-outer {
+        padding-bottom: 1rem;
+      }
+
+      .owl-item {
+        &.active {
+          ~ .owl-item {
+            .item {
+              @media (max-width: 479px) {
+                transform: scale(0.85);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,5 +1,7 @@
 <?php
-$galleries = get_post_meta(get_the_ID(), 'paint_cmb_product_image_gallery', true);
+use ExtendSite\Admin\Fields\Product\ProductMediaTab;
+
+$galleries = class_exists(ProductMediaTab::class) ? ProductMediaTab::get_image_gallery_ids(get_the_ID()) : [];
 $contact = paint_get_option('paint_opt_product_detail_contact');
 ?>
 
@@ -7,7 +9,7 @@ $contact = paint_get_option('paint_opt_product_detail_contact');
     <div class="thumbnail-box">
         <?php if ( $galleries ) : ?>
             <div class="slider-product-galleries owl-carousel">
-                <?php foreach ($galleries as $attachment_id => $attachment_url) : ?>
+                <?php foreach ($galleries as $attachment_id) : ?>
                     <div class="item d-flex align-items-center justify-content-center">
                         <a class="item__thumbnail zoom-box" href="<?php echo esc_url( wp_get_attachment_url($attachment_id) ); ?>">
                             <?php echo wp_get_attachment_image( $attachment_id, 'large' ) ?>
@@ -17,7 +19,7 @@ $contact = paint_get_option('paint_opt_product_detail_contact');
             </div>
 
             <div class="slider-product-gallery-nav owl-carousel">
-                <?php foreach ($galleries as $attachment_id => $attachment_url) :?>
+                <?php foreach ($galleries as $attachment_id) :?>
                     <div class="item">
                         <?php echo wp_get_attachment_image( $attachment_id, 'medium' ) ?>
                     </div>

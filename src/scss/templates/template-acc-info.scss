@@ -1,0 +1,134 @@
+@import "../variables-site/variables";
+
+.user-info-warp {
+  background-color: $color-white;
+
+  .grid-info {
+    display: grid;
+
+    @media (min-width: 1200px) {
+      grid-column-gap: 20rem;
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+      grid-column-gap: 5rem;
+    }
+
+    @media (min-width: 768px) {
+      grid-template-columns: 15rem 1fr;
+    }
+
+    @media (max-width: 991px) {
+      grid-column-gap: 2rem;
+    }
+
+    .nav-acc-management {
+      @media (max-width: 767px) {
+        margin-bottom: 3rem;
+      }
+    }
+  }
+
+  .heading {
+    &__right {
+      .avatar {
+        display: inline-block;
+        width: 6.4rem;
+        height: 6.4rem;
+        overflow: hidden;
+        border-radius: 50%;
+      }
+    }
+  }
+
+  .nav-acc-management {
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+
+      li {
+        ~ li {
+          margin-top: .8rem;
+        }
+      }
+    }
+  }
+
+  form {
+    .group-control {
+      ~ .group-control {
+        margin-top: 1.6rem;
+      }
+    }
+
+    .form-label {
+      margin-bottom: .8rem;
+      font-style: italic;
+      color: $color-tertiary;
+    }
+
+    .form-control {
+      padding: 0 0 .6rem;
+      border-width: 0 0 1px;
+      border-color: $color-tertiary;
+      border-radius: 0;
+
+      ~ .form-control {
+        margin-top: 1rem;
+      }
+
+      &:disabled {
+        color: $color-tertiary;
+        background-color: transparent;
+      }
+    }
+
+    .action-box {
+      margin-top: 5rem;
+    }
+
+    .btn-submit {
+      padding: .8rem 1.6rem;
+      font-size: 1.6rem;
+      font-weight: 700;
+      border-radius: 0;
+      background-color: $color-secondary;
+    }
+
+    &.change-password-form {
+      @media (min-width: 768px) {
+        max-width: 500px;
+        margin: 0 auto;
+      }
+
+      .action-box {
+        margin-top: 5rem;
+      }
+    }
+  }
+
+  .tab-user-info {
+    .nav-link {
+      padding: 0;
+      color: $color-primary;
+      text-align: inherit;
+      border-radius: 0;
+
+      &:not(:last-child) {
+        margin-bottom: 0.6rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 1px solid $color-secondary;
+      }
+
+      &.active {
+        color: $color-secondary;
+        background-color: transparent;
+      }
+
+      &:hover {
+        color: $color-secondary;
+      }
+    }
+  }
+}

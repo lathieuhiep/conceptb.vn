@@ -1,0 +1,11 @@
+/* Tắt mọi hiệu ứng làm mượt chuyển động mặc định của Swiper */
+.element-marquee.swiper .swiper-wrapper {
+  transition-timing-function: linear !important;
+  -webkit-transition-timing-function: linear !important;
+  transition-delay: 0s !important;
+}
+
+/* Đảm bảo Swiper không bị khựng khi chuyển tiếp giữa các vòng lặp */
+.element-marquee.swiper.swiper-initialized .swiper-wrapper {
+  will-change: transform;
+}

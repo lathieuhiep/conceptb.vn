@@ -1,0 +1,62 @@
+.element-section-products {
+  .heading {
+    margin-bottom: 6rem;
+  }
+}
+
+.element-products {
+  .item {
+    margin-bottom: 3rem;
+
+    .thumbnail {
+      margin-bottom: 1.8rem;
+      position: relative;
+
+      img {
+        width: 100%;
+        @include transition();
+      }
+
+      .img-feature-hover {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        opacity: 0;
+        visibility: hidden;
+      }
+    }
+
+    .link-image {
+      display: block;
+      height: inherit;
+    }
+
+    .title {
+      margin: 0;
+      text-align: center;
+
+      @media (min-width: 1200px) {
+        font-size: 1.8rem;
+      }
+      
+      @media (max-width: 1199px) {
+        font-size: 1.4rem;
+      }
+
+      a {
+        display: inline-block;
+        color: $color-black;
+      }
+    }
+
+    &:hover {
+      .img-feature-hover {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}

@@ -1,0 +1,50 @@
+.element-post-slider {
+  color: $color-black;
+
+  .heading {
+    margin-bottom: 36px;
+  }
+
+  .post {
+    &__thumbnail {
+      margin-bottom: .6rem;
+      height: 24.5rem;
+      overflow: hidden;
+      @include transition();
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+    }
+
+    &__title {
+      margin-bottom: .2em;
+      font-size: 1.8rem;
+    }
+
+    &__date {
+      margin-bottom: .2rem;
+      font-size: 1.5rem;
+    }
+
+    &:hover {
+      .post__thumbnail {
+        opacity: 0.5;
+      }
+    }
+  }
+
+  .slick-list {
+    margin: 0 -12px;
+  }
+
+  .slick-slide {
+    margin: 0 12px;
+  }
+
+  .link-all {
+    margin-top: 3rem;
+  }
+}

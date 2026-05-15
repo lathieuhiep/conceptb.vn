@@ -1,0 +1,86 @@
+.element-testimonial {
+  .heading {
+    margin-bottom: 60px;
+  }
+
+  .slick-list {
+    margin: 0 -32px;
+  }
+
+  .slick-slide {
+    margin: 0 32px 8px;
+  }
+
+  .item {
+    position: relative;
+    margin-top: 80px;
+    padding: 100px 40px 60px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 10px;
+    @include box-shadow();
+
+    &::before {
+      position: absolute;
+      content: "";
+      top: 0;
+      left: 50%;
+      width: 174px;
+      height: 87px; /* as the half of the width */
+      background-color: $background-hover;
+      border-bottom-left-radius: 85px;
+      border-bottom-right-radius: 85px;
+      @include transform(translateX(-50%));
+    }
+
+    &__image {
+      position: absolute;
+      top: -80px;
+      left: 50%;
+      width: 160px;
+      height: 160px;
+      padding: 8px;
+      overflow: hidden;
+      border-radius: 50%;
+      background-color: #ffffff;
+      @include flexbox();
+      @include align-items(center);
+      @include justify-content(center);
+      @include transform(translateX(-50%));
+
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+        @include box-shadow();
+      }
+    }
+
+    .start {
+      margin-bottom: 10px;
+      color: $color-hover;
+
+      i {
+        margin-right: 12px;
+        font-size: 3rem;
+        filter: drop-shadow(0 4px 4px rgba(0, 0, 0, 0.25));
+
+        &:last-child {
+          margin-right: 0;
+        }
+      }
+    }
+
+    .name {
+      margin-bottom: 18px;
+      font-size: 1.6rem;
+    }
+
+    .content {
+      text-align: left;
+      font-size: 1.2rem;
+      color: #9A9A9A;
+    }
+  }
+}

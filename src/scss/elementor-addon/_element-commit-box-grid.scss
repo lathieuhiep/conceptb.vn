@@ -1,0 +1,44 @@
+.element-commit-box-grid {
+  display: grid;
+  grid-auto-rows: min-content;
+
+  .item {
+    padding: 1.2rem 3rem;
+    position: relative;
+    min-height: 11rem;
+    text-align: center;
+    @include flex-center();
+    border-radius: 2rem;
+    border: 1px solid #FDCD26;
+    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(254,220,104,1) 79%, rgba(253,205,38,1) 100%);
+
+    &__heading {
+      position: absolute;
+      padding: 0 3rem;
+      left: 0;
+      right: 0;
+      @include transition();
+    }
+
+    &__body {
+      @include transition();
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    &:hover {
+      background: #ffffff;
+
+      .item__heading {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      .item__body {
+        opacity: 1;
+        visibility: visible;
+      }
+    }
+  }
+}

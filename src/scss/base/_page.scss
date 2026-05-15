@@ -1,0 +1,73 @@
+// Page Default
+.site-container {
+  padding: 5rem 0;
+
+  &.site-container-elementor {
+    padding: 0;
+  }
+}
+
+.site-page-content {
+  p {
+    &:after {
+      display: table;
+      clear: both;
+      content: '';
+    }
+  }
+}
+
+// Page Contact
+.site-contact-warp {
+  .top {
+    &__title {
+      margin-bottom: 1.6rem;
+      padding-bottom: .6rem;
+      position: relative;
+
+      &:after {
+        position: absolute;
+        content: "";
+        left: 50%;
+        width: 15rem;
+        height: 1px;
+        bottom: 0;
+        background-color: $color-secondary;
+        transform: translateX(-50%);
+      }
+    }
+  }
+
+  .wpcf7-form {
+    br {
+      display: none;
+    }
+  }
+
+  .wpcf7-form-control {
+    &.wpcf7-checkbox {
+      margin: 0;
+      display: grid;
+      grid-gap: 1.2rem;
+      grid-template-columns: repeat(2, 1fr);
+
+      .wpcf7-list-item {
+        margin: 0;
+
+        label {
+          margin: 0;
+          display: grid;
+          grid-gap: 1.2rem;
+          grid-template-columns: auto 1fr;
+
+          input {
+          }
+
+          .wpcf7-list-item-label {
+
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,8 +1,10 @@
 <?php
+use ExtendSite\Admin\Fields\Product\ProductConstructionTab;
+
 $idProduct = $args['idProduct'] ?? '';
 
 if ( $idProduct ) :
-$opt_process = get_post_meta($idProduct, 'paint_cmb_product_construction_process', true); ?>
+$opt_process = class_exists(ProductConstructionTab::class) ? ProductConstructionTab::get_construction_process((int) $idProduct) : []; ?>
 
 <div class="construction-process-product">
   <div class="content">

@@ -1,5 +1,7 @@
 <?php
-$code_product = get_post_meta(get_the_ID(), 'paint_cmb_product_code', true);
+use ExtendSite\Admin\Fields\Product\ProductGeneralTab;
+
+$code_product = class_exists(ProductGeneralTab::class) ? ProductGeneralTab::get_code(get_the_ID()) : '';
 ?>
 
 <?php if ($code_product) : ?>

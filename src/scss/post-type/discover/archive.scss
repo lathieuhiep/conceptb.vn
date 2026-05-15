@@ -1,0 +1,90 @@
+@import "../../variables-site/variables";
+
+@import "../../components/action-tax-search";
+
+.site-discover-cat {
+  .heading {
+    margin-bottom: 3.2rem;
+    font-size: 2.4rem;
+    font-weight: 600;
+  }
+}
+
+.grid-discover {
+  margin: 0 -6px;
+
+  &__item {
+    margin-bottom: 12px;
+    padding: 0 6px;
+
+    @media (min-width: 992px) {
+      width: 16.66666667%;
+    }
+
+    @media (min-width: 768px) and (max-width: 991px) {
+      width: 20%;
+    }
+
+    @media (min-width: 576px) and (max-width: 767px) {
+      width: 25%;
+    }
+
+    @media (min-width: 480px) and (max-width: 575px) {
+      width: 33.33333333%;
+    }
+
+    @media (max-width: 479px) {
+      width: 50%;
+    }
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .thumbnail-image {
+    margin-bottom: 12px;
+    overflow: hidden;
+    border-radius: 12px;
+  }
+
+  .title {
+    margin-bottom: 2px;
+    font-size: 1.2rem;
+  }
+
+  .meta {
+    font-size: 1.4rem;
+  }
+
+  .view-detail {
+    margin-bottom: .6rem;
+    cursor: pointer;
+    font-size: 1.7rem;
+  }
+}
+
+.site-result-discover {
+  .heading {
+    margin-bottom: 2.4rem;
+
+    .page-title {
+      font-size: 2.4rem;
+    }
+  }
+
+  .form-search-discover {
+    margin-bottom: 3rem;
+    display: grid;
+    grid-gap: 2.4rem;
+    grid-template-columns: repeat(2, 1fr) 25rem;
+
+    .group-control {
+      margin: 0;
+    }
+
+    .search-submit {
+      margin: 0;
+    }
+  }
+}

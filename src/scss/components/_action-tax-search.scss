@@ -1,0 +1,121 @@
+.action-tax-search {
+  margin: 0 0 3.6rem;
+
+  @media (min-width: 1200px) {
+    display: grid;
+    grid-gap: 2.5rem 5rem;
+    grid-template-columns: 80% 1fr;
+  }
+
+  .scroll-box {
+    padding: 0 3.5rem;
+
+    @media (max-width: 1199px) {
+      margin-bottom: 3rem;
+    }
+  }
+
+  .list-cat {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+
+    &__item {
+      position: relative;
+      display: inline-block;
+      font-size: 1.8rem;
+      text-align: center;
+
+      a {
+        display: block;
+      }
+
+      &.active,
+      &:hover {
+        a {
+          color: $color-secondary;
+        }
+      }
+    }
+
+    .slick-slide {
+      position: relative;
+      padding-right: 2rem;
+
+      ~ .slick-slide {
+        &:before {
+          left: -2.2rem;
+
+          @media (min-width: 576px) {
+            position: absolute;
+            content: "";
+            top: .5rem;
+            bottom: .5rem;
+            width: 1px;
+            background-color: $color-black;
+          }
+        }
+      }
+    }
+
+    &.slick-slider {
+      .slick-arrow {
+        padding: 0;
+        width: auto;
+        height: auto;
+        background-color: transparent;
+
+        &:hover {
+          color: $color-hover;
+        }
+
+        &.slick-prev {
+          left: -3.5rem;
+        }
+
+        &.slick-next {
+          right: -3.5rem;
+        }
+      }
+    }
+  }
+
+  .form-search-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    &:before {
+      position: absolute;
+      content: "";
+      top: .5rem;
+      bottom: .5rem;
+      width: 1px;
+      left: -2.5rem;
+      background-color: $color-black;
+    }
+
+    .group-control {
+      position: relative;
+    }
+
+    .search-field {
+      padding: 0;
+      border: none;
+      font-size: 1.8rem;
+      background-color: transparent;
+    }
+
+    .search-submit {
+      display: none;
+      padding: 0;
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: 3rem;
+      border: none;
+      background-color: transparent;
+    }
+  }
+}
