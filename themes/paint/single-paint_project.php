@@ -1,4 +1,7 @@
 <?php
+use ExtendSite\Admin\Fields\Project\ProjectGalleryTab;
+use ExtendSite\Admin\Fields\Project\ProjectGeneralTab;
+
 get_header();
 
 global $current_user;
@@ -6,13 +9,13 @@ $user_id = $current_user->id;
 
 $dataUserSave = paint_get_user_saved($user_id, get_the_ID());
 
-// get metabox
-$banner = get_post_meta(get_the_ID(), 'paint_cmb_project_banner_id', true);
-$gallery = get_post_meta(get_the_ID(), 'paint_cmb_project_gallery', true);
-$model = get_post_meta(get_the_ID(), 'paint_cmb_project_model', true);
-$mass = get_post_meta(get_the_ID(), 'paint_cmb_project_mass', true);
-$completion_time = get_post_meta(get_the_ID(), 'paint_cmb_project_completion_time', true);
-$completion_construction = get_post_meta(get_the_ID(), 'paint_cmb_project_construction', true);
+$gallery = class_exists(ProjectGalleryTab::class) ? ProjectGalleryTab::get_gallery_ids(get_the_ID()) : [];
+$project_data = class_exists(ProjectGeneralTab::class) ? ProjectGeneralTab::get_data(get_the_ID()) : [];
+$banner = $project_data['banner_id'] ?? 0;
+$model = $project_data['model'] ?? '';
+$mass = $project_data['mass'] ?? '';
+$completion_time = $project_data['completion_time'] ?? '';
+$completion_construction = $project_data['construction'] ?? '';
 
 $config_feature = [
     'infinite' => true,
@@ -89,9 +92,9 @@ $config_nav_thumbnail = [
                                     <?php the_post_thumbnail('large'); ?>
                                 </div>
 
-                                <?php foreach ($gallery as $key => $item) : ?>
+                                <?php foreach ($gallery as $attachment_id) : ?>
                                     <div class="item">
-                                        <?php echo wp_get_attachment_image($key, 'large') ?>
+                                        <?php echo wp_get_attachment_image($attachment_id, 'large') ?>
                                     </div>
                                 <?php endforeach; ?>
                             </div>
@@ -102,9 +105,9 @@ $config_nav_thumbnail = [
                                     <?php the_post_thumbnail('thumbnail'); ?>
                                 </div>
 
-                                <?php foreach ($gallery as $key => $item) : ?>
+                                <?php foreach ($gallery as $attachment_id) : ?>
                                     <div class="item">
-                                        <?php echo wp_get_attachment_image($key) ?>
+                                        <?php echo wp_get_attachment_image($attachment_id) ?>
                                     </div>
                                 <?php endforeach; ?>
                             </div>

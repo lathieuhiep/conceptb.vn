@@ -1,4 +1,6 @@
 <?php
+use ExtendSite\Admin\Fields\Tool\ToolSpecificationsTab;
+
 $opt_cat = paint_get_option('template_home_opt_tool_cat', '');
 $opt_limit = paint_get_option('template_home_opt_tool_limit', 10);
 $opt_order_by = paint_get_option('template_home_opt_tool_order_by', 'id');
@@ -73,8 +75,9 @@ if ($query->have_posts()) :
       while ($query->have_posts()):
       $query->the_post();
 
-      $url_product = get_post_meta(get_the_ID(), 'paint_cmb_tool_specifications_url', true);
-      $price = get_post_meta(get_the_ID(), 'paint_cmb_tool_specifications_price', true);
+      $tool_data = class_exists(ToolSpecificationsTab::class) ? ToolSpecificationsTab::get_data(get_the_ID()) : [];
+      $url_product = $tool_data['url'] ?? '';
+      $price = $tool_data['price'] ?? 0;
       ?>
 
       <div class="item">

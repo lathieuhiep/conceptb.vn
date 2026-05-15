@@ -1,4 +1,7 @@
 <?php
+use ExtendSite\Admin\Fields\Tool\ToolGalleryTab;
+use ExtendSite\Admin\Fields\Tool\ToolSpecificationsTab;
+
 get_header();
 
 $config_slider_for = [
@@ -43,13 +46,14 @@ $config_slider_nav = [
           if (have_posts()) :
             while (have_posts()) : the_post();
 
-              $gallery = get_post_meta(get_the_ID(), 'paint_cmb_tool_option_side_gallery', true);
-              $url = get_post_meta(get_the_ID(), 'paint_cmb_tool_specifications_url', true);
-              $price = get_post_meta(get_the_ID(), 'paint_cmb_tool_specifications_price', true);
-              $substance = get_post_meta(get_the_ID(), 'paint_cmb_tool_specifications_substance', true);
-              $size = get_post_meta(get_the_ID(), 'paint_cmb_tool_specifications_size', true);
-              $color = get_post_meta(get_the_ID(), 'paint_cmb_tool_specifications_color', true);
-              $weight = get_post_meta(get_the_ID(), 'paint_cmb_tool_specifications_weight', true);
+              $gallery = class_exists(ToolGalleryTab::class) ? ToolGalleryTab::get_gallery_ids(get_the_ID()) : [];
+              $tool_data = class_exists(ToolSpecificationsTab::class) ? ToolSpecificationsTab::get_data(get_the_ID()) : [];
+              $url = $tool_data['url'] ?? '';
+              $price = $tool_data['price'] ?? 0;
+              $substance = $tool_data['substance'] ?? '';
+              $size = $tool_data['size'] ?? '';
+              $color = $tool_data['color'] ?? '';
+              $weight = $tool_data['weight'] ?? '';
               ?>
               <div class="entry-post__box">
                 <div class="entry-image">
@@ -59,7 +63,7 @@ $config_slider_nav = [
                       <?php the_post_thumbnail('large'); ?>
                     </div>
 
-                    <?php foreach ($gallery as $attachment_id => $attachment_url) : ?>
+                    <?php foreach ($gallery as $attachment_id) : ?>
                       <div class="image-tool">
                         <?php echo wp_get_attachment_image($attachment_id, 'large'); ?>
                       </div>
@@ -72,7 +76,7 @@ $config_slider_nav = [
                       <?php the_post_thumbnail('thumbnail'); ?>
                     </div>
 
-                    <?php foreach ($gallery as $attachment_id => $attachment_url) : ?>
+                    <?php foreach ($gallery as $attachment_id) : ?>
                       <div class="image-tool">
                         <?php echo wp_get_attachment_image($attachment_id, 'thumbnail'); ?>
                       </div>

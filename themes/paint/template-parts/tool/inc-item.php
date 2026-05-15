@@ -1,6 +1,9 @@
 <?php
-$url_product = get_post_meta(get_the_ID(), 'paint_cmb_tool_specifications_url', true);
-$price = get_post_meta(get_the_ID(), 'paint_cmb_tool_specifications_price', true);
+use ExtendSite\Admin\Fields\Tool\ToolSpecificationsTab;
+
+$tool_data = class_exists(ToolSpecificationsTab::class) ? ToolSpecificationsTab::get_data(get_the_ID()) : [];
+$url_product = $tool_data['url'] ?? '';
+$price = $tool_data['price'] ?? 0;
 ?>
 
 <div class="item">
