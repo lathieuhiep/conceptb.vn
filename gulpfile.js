@@ -161,6 +161,26 @@ async function buildPostType() {
     compilerFolderScss('post-type', '*/**.scss')
 }
 
+function getScssRelativePath(filePath) {
+    const normalizedPath = filePath.replace(/\\/g, '/')
+    const normalizedSrc = `${pathSrc}/scss/`.replace(/^\.\//, '')
+    const pathFromProject = normalizedPath.replace(/^\.\//, '')
+    const srcIndex = pathFromProject.indexOf(normalizedSrc)
+
+    if (srcIndex !== -1) {
+        return pathFromProject.slice(srcIndex + normalizedSrc.length)
+    }
+
+    return normalizedPath.split('/src/scss/').pop()
+}
+
+function buildChangedPostType(filePath) {
+    const relativeFile = getScssRelativePath(filePath)
+    const desc = relativeFile.split('/').slice(0, -1).join('/')
+
+    return compilerFileScss(relativeFile, desc)
+}
+
 // buildJSTheme
 async function buildJSTheme() {
     return src([
@@ -276,8 +296,12 @@ async function watchRun() {
     
     watch([
         `${pathSrc}/scss/components/*.scss`,
-        `${pathSrc}/scss/post-type/*/**.scss`
     ], buildPostType)
+
+    const postTypeWatcher = watch(`${pathSrc}/scss/post-type/*/**.scss`)
+
+    postTypeWatcher.on('change', buildChangedPostType)
+    postTypeWatcher.on('add', buildChangedPostType)
 
     watch([
         `${pathSrc}/scss/elementor-addon/*.scss`

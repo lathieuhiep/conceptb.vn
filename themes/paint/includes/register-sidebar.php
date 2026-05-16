@@ -18,6 +18,7 @@ function paint_widget_registration($name, $id, $description = ''): void {
 function paint_multiple_widget_init(): void {
     paint_widget_registration( esc_html__('Sidebar Main', 'paint'), 'paint-sidebar-main' );
     paint_widget_registration( esc_html__('Sidebar Detail Tool', 'paint'), 'paint-sidebar-tool', esc_html__('Display sidebar detail tool.', 'paint') );
+    paint_widget_registration( esc_html__('Sidebar Product Detail', 'paint'), 'paint-sidebar-product-detail', esc_html__('Display sidebar on single product pages.', 'paint') );
 
     // sidebar footer
     $opt_number_columns = paint_get_option('paint_opt_footer_columns', '4');

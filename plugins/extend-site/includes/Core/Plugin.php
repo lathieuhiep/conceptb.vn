@@ -28,7 +28,7 @@ class Plugin
         CarbonLoader::boot();
 
         // Load one-time data migrations
-        MigrationManager::boot();
+//        MigrationManager::boot();
 
         // Load Page Fields
         PageFieldsManager::boot();
