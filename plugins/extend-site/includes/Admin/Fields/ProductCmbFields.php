@@ -2,6 +2,8 @@
 
 namespace ExtendSite\Admin\Fields;
 
+use ExtendSite\Helpers\ESHelpers;
+
 defined('ABSPATH') || exit;
 
 class ProductCmbFields
@@ -169,24 +171,6 @@ class ProductCmbFields
 
     private static function get_color_code_categories(): array
     {
-        if (function_exists('paint_check_get_cat')) {
-            return paint_check_get_cat('paint_color_code_cat');
-        }
-
-        $terms = get_terms([
-            'taxonomy' => 'paint_color_code_cat',
-            'hide_empty' => false,
-        ]);
-
-        if (is_wp_error($terms)) {
-            return [];
-        }
-
-        $options = [];
-        foreach ($terms as $term) {
-            $options[$term->term_id] = $term->name;
-        }
-
-        return $options;
+        return ESHelpers::get_tax_list_with_count('paint_color_code_cat');
     }
 }

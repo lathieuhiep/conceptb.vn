@@ -23,29 +23,29 @@ class HeroTab implements FieldTabIF
     public static function fields(): array
     {
         return [
-            Field::make('text', self::CAPTION, esc_html__('Dòng chú thích (Caption)', 'paint'))
+            Field::make('text', self::CAPTION, esc_html__('Dòng chú thích (Caption)', 'extend-site'))
                 ->set_default_value('CHỦ ĐỘNG NGUỒN LỰC')
                 ->set_width(50),
 
-            Field::make('text', self::HEADLINE, esc_html__('Tiêu đề chính (Headline)', 'paint'))
+            Field::make('text', self::HEADLINE, esc_html__('Tiêu đề chính (Headline)', 'extend-site'))
                 ->set_default_value('Bứt phá tiến độ')
                 ->set_width(50),
 
-            Field::make('select', self::HEADLINE_TAG, esc_html__('Thẻ HTML tiêu đề', 'paint'))
+            Field::make('select', self::HEADLINE_TAG, esc_html__('Thẻ HTML tiêu đề', 'extend-site'))
                 ->add_options(ControlOptions::heading_tags())
                 ->set_default_value('h2')
                 ->set_width(25),
 
-            Field::make('text', self::BUTTON_TEXT, esc_html__('Chữ trên nút', 'paint'))
+            Field::make('text', self::BUTTON_TEXT, esc_html__('Chữ trên nút', 'extend-site'))
                 ->set_default_value('Năng lực thi công')
                 ->set_width(25),
 
-            Field::make('text', self::BUTTON_LINK, esc_html__('Link nút', 'paint'))
+            Field::make('text', self::BUTTON_LINK, esc_html__('Link nút', 'extend-site'))
                 ->set_attribute('type', 'url')
                 ->set_default_value('https://example.com')
                 ->set_width(50),
 
-            Field::make('image', self::IMAGE_BANNER, esc_html__('Ảnh nền', 'paint'))
+            Field::make('image', self::IMAGE_BANNER, esc_html__('Ảnh nền', 'extend-site'))
                 ->set_width(50),
         ];
     }

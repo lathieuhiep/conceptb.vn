@@ -45,6 +45,30 @@ class ESHelpers
         return $options;
     }
 
+    public static function get_tax_list_with_count(string $taxonomy): array
+    {
+        $options = [];
+
+        if (!taxonomy_exists($taxonomy)) {
+            return $options;
+        }
+
+        $terms = get_terms([
+            'taxonomy' => $taxonomy,
+            'hide_empty' => false,
+        ]);
+
+        if (is_wp_error($terms) || empty($terms)) {
+            return $options;
+        }
+
+        foreach ($terms as $term) {
+            $options[$term->term_id] = $term->name . ' (' . $term->count . ')';
+        }
+
+        return $options;
+    }
+
     /**
      * Lấy danh sách các Contact Form 7.
      *
