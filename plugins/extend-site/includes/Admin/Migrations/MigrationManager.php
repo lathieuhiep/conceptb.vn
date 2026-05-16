@@ -21,5 +21,6 @@ class MigrationManager
         ColorCodeCmbToCarbonMigration::run();
         ToolCmbToCarbonMigration::run();
         ProjectCmbToCarbonMigration::run();
+        DiscoverCmbToCarbonMigration::run();
     }
 }

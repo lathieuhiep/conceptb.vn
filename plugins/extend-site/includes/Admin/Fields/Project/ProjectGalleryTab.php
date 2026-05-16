@@ -29,7 +29,11 @@ class ProjectGalleryTab implements FieldTabIF
             : [];
 
         if (is_array($gallery) && !empty($gallery)) {
-            return self::normalize_attachment_ids($gallery);
+            $image_ids = self::normalize_attachment_ids($gallery);
+
+            if (!empty($image_ids)) {
+                return $image_ids;
+            }
         }
 
         $gallery = self::get_first_non_empty_meta($post_id, self::CMB_GALLERY);
@@ -41,7 +45,11 @@ class ProjectGalleryTab implements FieldTabIF
         $image_ids = [];
 
         foreach ($gallery as $id => $url) {
-            $image_id = is_numeric($id) ? (int) $id : 0;
+            $image_id = is_numeric($id) && self::is_valid_image_id((int) $id) ? (int) $id : 0;
+
+            if (!$image_id && is_numeric($url) && self::is_valid_image_id((int) $url)) {
+                $image_id = (int) $url;
+            }
 
             if (!$image_id && is_string($url)) {
                 $image_id = self::attachment_id_from_url($url);
@@ -98,7 +106,12 @@ class ProjectGalleryTab implements FieldTabIF
 
     private static function normalize_attachment_ids(array $ids): array
     {
-        return array_values(array_unique(array_filter(array_map('absint', $ids))));
+        return array_values(array_unique(array_filter(array_map('absint', $ids), [self::class, 'is_valid_image_id'])));
+    }
+
+    private static function is_valid_image_id(int $image_id): bool
+    {
+        return $image_id > 0 && wp_attachment_is_image($image_id);
     }
 
     private static function get_first_non_empty_meta(int $post_id, string $key)

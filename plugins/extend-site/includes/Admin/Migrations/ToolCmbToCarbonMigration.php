@@ -15,10 +15,6 @@ class ToolCmbToCarbonMigration
 
     public static function run(): void
     {
-        if (get_option(self::OPTION_KEY)) {
-            return;
-        }
-
         if (!function_exists('carbon_set_post_meta') || !function_exists('carbon_get_post_meta')) {
             return;
         }
@@ -29,6 +25,7 @@ class ToolCmbToCarbonMigration
 
         set_transient(self::LOCK_KEY, 1, 10 * MINUTE_IN_SECONDS);
 
+        $has_run = (bool) get_option(self::OPTION_KEY);
         $migrated = 0;
         $post_ids = get_posts([
             'post_type' => ToolPostType::SLUG,
@@ -42,11 +39,19 @@ class ToolCmbToCarbonMigration
             $migrated += self::migrate_tool((int) $post_id);
         }
 
-        update_option(self::OPTION_KEY, [
-            'migrated_at' => current_time('mysql'),
-            'post_count' => count($post_ids),
-            'field_count' => $migrated,
-        ], false);
+        if (!$has_run) {
+            update_option(self::OPTION_KEY, [
+                'migrated_at' => current_time('mysql'),
+                'post_count' => count($post_ids),
+                'field_count' => $migrated,
+            ], false);
+        } else {
+            update_option(self::OPTION_KEY . '_last_sync', [
+                'synced_at' => current_time('mysql'),
+                'post_count' => count($post_ids),
+                'field_count' => $migrated,
+            ], false);
+        }
 
         delete_transient(self::LOCK_KEY);
     }

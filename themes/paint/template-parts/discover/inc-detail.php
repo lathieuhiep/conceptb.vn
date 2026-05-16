@@ -1,4 +1,6 @@
 <?php
+use ExtendSite\Admin\Fields\Discover\DiscoverGeneralTab;
+
 global $current_user;
 $user_id = $current_user->id;
 
@@ -33,8 +35,9 @@ $dataUserSave = paint_get_user_saved($user_id, get_the_ID());
 
           <div class="meta-filed">
             <?php
-            $color = get_post_meta(get_the_ID(), 'paint_cmb_discover_color', true);
-            $color_url = get_post_meta(get_the_ID(), 'paint_cmb_discover_color_url', true);
+            $discover_data = class_exists(DiscoverGeneralTab::class) ? DiscoverGeneralTab::get_data(get_the_ID()) : [];
+            $color = $discover_data['color'] ?? '';
+            $color_url = $discover_data['color_url'] ?? '';
 
             if ( !empty( $color ) ) :
             ?>
@@ -52,7 +55,7 @@ $dataUserSave = paint_get_user_saved($user_id, get_the_ID());
             <?php
             endif;
 
-            $classify = get_post_meta(get_the_ID(), 'paint_cmb_discover_classify', true);
+            $classify = $discover_data['classify'] ?? '';
 
             if ( !empty($classify) ) :
             ?>
@@ -68,7 +71,7 @@ $dataUserSave = paint_get_user_saved($user_id, get_the_ID());
             <?php
             endif;
 
-            $construction_tools = get_post_meta(get_the_ID(), 'paint_cmb_discover_construction_tools', true);
+            $construction_tools = $discover_data['construction_tool_ids'] ?? [];
 
             if ( !empty( $construction_tools ) ) :
             ?>
@@ -79,7 +82,7 @@ $dataUserSave = paint_get_user_saved($user_id, get_the_ID());
 
                 <div class="content meta-filed-construction-tools">
                   <?php
-                  foreach ( $construction_tools as $attachment_id => $attachment_url) :
+                  foreach ( $construction_tools as $attachment_id) :
                     echo wp_get_attachment_image( $attachment_id );
                   endforeach;
                   ?>
@@ -88,7 +91,7 @@ $dataUserSave = paint_get_user_saved($user_id, get_the_ID());
             <?php
             endif;
 
-            $video = get_post_meta(get_the_ID(), 'paint_cmb_discover_video', true);
+            $video = $discover_data['video'] ?? '';
 
             if (!empty( $video )) :
             ?>

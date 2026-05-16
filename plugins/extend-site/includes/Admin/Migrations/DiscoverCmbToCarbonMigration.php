@@ -2,16 +2,15 @@
 
 namespace ExtendSite\Admin\Migrations;
 
-use ExtendSite\Admin\Fields\Project\ProjectGalleryTab;
-use ExtendSite\Admin\Fields\Project\ProjectGeneralTab;
-use ExtendSite\PostType\ProjectPostType;
+use ExtendSite\Admin\Fields\Discover\DiscoverGeneralTab;
+use ExtendSite\PostType\DiscoverPostType;
 
 defined('ABSPATH') || exit;
 
-class ProjectCmbToCarbonMigration
+class DiscoverCmbToCarbonMigration
 {
-    private const OPTION_KEY = 'extend_site_migrated_project_cmb_to_carbon';
-    private const LOCK_KEY = 'extend_site_migrating_project_cmb_to_carbon';
+    private const OPTION_KEY = 'extend_site_migrated_discover_cmb_to_carbon';
+    private const LOCK_KEY = 'extend_site_migrating_discover_cmb_to_carbon';
 
     public static function run(): void
     {
@@ -28,7 +27,7 @@ class ProjectCmbToCarbonMigration
         $has_run = (bool) get_option(self::OPTION_KEY);
         $migrated = 0;
         $post_ids = get_posts([
-            'post_type' => ProjectPostType::SLUG,
+            'post_type' => DiscoverPostType::SLUG,
             'post_status' => 'any',
             'posts_per_page' => -1,
             'fields' => 'ids',
@@ -36,7 +35,7 @@ class ProjectCmbToCarbonMigration
         ]);
 
         foreach ($post_ids as $post_id) {
-            $migrated += self::migrate_project((int) $post_id);
+            $migrated += self::migrate_discover((int) $post_id);
         }
 
         if (!$has_run) {
@@ -56,23 +55,22 @@ class ProjectCmbToCarbonMigration
         delete_transient(self::LOCK_KEY);
     }
 
-    private static function migrate_project(int $post_id): int
+    private static function migrate_discover(int $post_id): int
     {
         $migrated = 0;
 
-        $migrated += self::copy_media_gallery($post_id, 'paint_cmb_project_gallery', ProjectGalleryTab::GALLERY);
-        $migrated += self::copy_image($post_id, 'paint_cmb_project_banner', ProjectGeneralTab::BANNER);
-        $migrated += self::copy_scalar($post_id, 'paint_cmb_project_model', ProjectGeneralTab::MODEL);
-        $migrated += self::copy_scalar($post_id, 'paint_cmb_project_mass', ProjectGeneralTab::MASS);
-        $migrated += self::copy_scalar($post_id, 'paint_cmb_project_completion_time', ProjectGeneralTab::COMPLETION_TIME);
-        $migrated += self::copy_scalar($post_id, 'paint_cmb_project_construction', ProjectGeneralTab::CONSTRUCTION);
+        $migrated += self::copy_scalar($post_id, 'paint_cmb_discover_color', DiscoverGeneralTab::COLOR);
+        $migrated += self::copy_scalar($post_id, 'paint_cmb_discover_color_url', DiscoverGeneralTab::COLOR_URL);
+        $migrated += self::copy_scalar($post_id, 'paint_cmb_discover_classify', DiscoverGeneralTab::CLASSIFY);
+        $migrated += self::copy_media_gallery($post_id, 'paint_cmb_discover_construction_tools', DiscoverGeneralTab::CONSTRUCTION_TOOLS);
+        $migrated += self::copy_scalar($post_id, 'paint_cmb_discover_video', DiscoverGeneralTab::VIDEO);
 
         return $migrated;
     }
 
     private static function copy_scalar(int $post_id, string $old_key, string $new_key): int
     {
-        if (self::has_valid_carbon_image($post_id, $new_key)) {
+        if (self::has_carbon_value($post_id, $new_key)) {
             return 0;
         }
 
@@ -87,26 +85,9 @@ class ProjectCmbToCarbonMigration
         return 1;
     }
 
-    private static function copy_image(int $post_id, string $old_key, string $new_key): int
-    {
-        if (self::has_valid_carbon_gallery($post_id, $new_key)) {
-            return 0;
-        }
-
-        $image_id = self::attachment_id_from_cmb_file($post_id, $old_key);
-
-        if (!$image_id) {
-            return 0;
-        }
-
-        carbon_set_post_meta($post_id, $new_key, $image_id);
-
-        return 1;
-    }
-
     private static function copy_media_gallery(int $post_id, string $old_key, string $new_key): int
     {
-        if (self::has_carbon_value($post_id, $new_key)) {
+        if (self::has_valid_carbon_gallery($post_id, $new_key)) {
             return 0;
         }
 
@@ -143,23 +124,6 @@ class ProjectCmbToCarbonMigration
         carbon_set_post_meta($post_id, $new_key, $image_ids);
 
         return 1;
-    }
-
-    private static function attachment_id_from_cmb_file(int $post_id, string $old_key): int
-    {
-        $image_id = (int) get_post_meta($post_id, $old_key . '_id', true);
-
-        if ($image_id && self::is_valid_image_id($image_id)) {
-            return $image_id;
-        }
-
-        $image_url = self::get_first_non_empty_meta($post_id, $old_key);
-
-        if (!is_string($image_url) || $image_url === '') {
-            return 0;
-        }
-
-        return self::attachment_id_from_url($image_url);
     }
 
     private static function attachment_id_from_url(string $image_url): int
@@ -222,11 +186,6 @@ class ProjectCmbToCarbonMigration
         }
 
         return $value !== '' && $value !== null;
-    }
-
-    private static function has_valid_carbon_image(int $post_id, string $key): bool
-    {
-        return self::is_valid_image_id((int) carbon_get_post_meta($post_id, $key));
     }
 
     private static function has_valid_carbon_gallery(int $post_id, string $key): bool

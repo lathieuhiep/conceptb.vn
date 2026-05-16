@@ -22,13 +22,6 @@ function paint_register_required_plugins(): void
           'source' => 'https://github.com/Codestar/codestar-framework/archive/refs/heads/master.zip'
       ),
 
-    // This is an example of how to include a plugin from the WordPress Plugin Repository
-    array(
-      'name' => 'CMB2',
-      'slug' => 'cmb2',
-      'required' => true,
-    ),
-
       // This is an example of how to include a plugin from the WordPress Plugin Repository
       array(
           'name'      =>  'Elementor',

@@ -20,15 +20,6 @@ require get_theme_file_path('extension/theme-option/options.php');
 // Required: Theme action filter
 require get_parent_theme_file_path('/includes/theme-action-filter.php');
 
-// Required: CMB2
-if (!class_exists('CMB2')) {
-  require get_parent_theme_file_path('/extension/meta-box/cmb_post.php');
-
-  // add fields custom
-  require get_parent_theme_file_path('/extension/meta-box/add-fields/address.php');
-  require get_parent_theme_file_path('/extension/meta-box/add-fields/fieldset-color.php');
-}
-
 // Required: Elementor
 if ( did_action( 'elementor/loaded' ) ) :
     require get_parent_theme_file_path( '/extension/elementor-addon/elementor-addon.php' );

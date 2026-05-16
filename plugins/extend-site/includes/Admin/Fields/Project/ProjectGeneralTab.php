@@ -39,7 +39,9 @@ class ProjectGeneralTab implements FieldTabIF
             : 0;
 
         if ($image_id) {
-            return $image_id;
+            if (self::is_valid_image_id($image_id)) {
+                return $image_id;
+            }
         }
 
         return self::attachment_id_from_cmb_file($post_id, self::CMB_BANNER);
@@ -95,7 +97,7 @@ class ProjectGeneralTab implements FieldTabIF
     {
         $image_id = (int) get_post_meta($post_id, $old_key . '_id', true);
 
-        if ($image_id) {
+        if ($image_id && self::is_valid_image_id($image_id)) {
             return $image_id;
         }
 
@@ -106,6 +108,11 @@ class ProjectGeneralTab implements FieldTabIF
         }
 
         return self::attachment_id_from_url($image_url);
+    }
+
+    private static function is_valid_image_id(int $image_id): bool
+    {
+        return $image_id > 0 && wp_attachment_is_image($image_id);
     }
 
     private static function attachment_id_from_url(string $image_url): int
