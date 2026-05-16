@@ -184,8 +184,31 @@ function buildChangedPostType(filePath) {
 // buildJSTheme
 async function buildJSTheme() {
     return src([
-        `${pathSrc}/js/**.js`
+        `${pathSrc}/js/*.js`
     ], {allowEmpty: true})
+        .pipe(uglify())
+        .pipe(rename( {suffix: '.min'} ))
+        .pipe(dest(`${pathAssets}/js/`))
+        .pipe(browserSync.stream());
+}
+
+function getJsRelativePath(filePath) {
+    const normalizedPath = filePath.replace(/\\/g, '/')
+    const normalizedSrc = `${pathSrc}/js/`.replace(/^\.\//, '')
+    const pathFromProject = normalizedPath.replace(/^\.\//, '')
+    const srcIndex = pathFromProject.indexOf(normalizedSrc)
+
+    if (srcIndex !== -1) {
+        return pathFromProject.slice(srcIndex + normalizedSrc.length)
+    }
+
+    return normalizedPath.split('/src/js/').pop()
+}
+
+function buildChangedJSTheme(filePath) {
+    const relativeFile = getJsRelativePath(filePath)
+
+    return src(`${pathSrc}/js/${relativeFile}`, {allowEmpty: true})
         .pipe(uglify())
         .pipe(rename( {suffix: '.min'} ))
         .pipe(dest(`${pathAssets}/js/`))
@@ -212,6 +235,14 @@ async function buildJSElementor() {
     return src([
         `${pathSrc}/js/elementor-addon/*.js`
     ], {allowEmpty: true})
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(dest(`${pathTheme}/extension/elementor-addon/js/`))
+        .pipe(browserSync.stream());
+}
+
+function buildChangedJSElementor(filePath) {
+    return src(filePath, {allowEmpty: true})
         .pipe(uglify())
         .pipe(rename({suffix: '.min'}))
         .pipe(dest(`${pathTheme}/extension/elementor-addon/js/`))
@@ -307,11 +338,15 @@ async function watchRun() {
         `${pathSrc}/scss/elementor-addon/*.scss`
     ], buildStylesElementor)
 
-    watch([`${pathSrc}/js/**.js`], buildJSTheme)
+    const jsThemeWatcher = watch(`${pathSrc}/js/*.js`)
 
-    watch([
-        `${pathSrc}/js/elementor-addon/*.js`
-    ], buildJSElementor)
+    jsThemeWatcher.on('change', buildChangedJSTheme)
+    jsThemeWatcher.on('add', buildChangedJSTheme)
+
+    const jsElementorWatcher = watch(`${pathSrc}/js/elementor-addon/*.js`)
+
+    jsElementorWatcher.on('change', buildChangedJSElementor)
+    jsElementorWatcher.on('add', buildChangedJSElementor)
 
     watch(`${pathSrc}/images/**/*`, optimizeImages)
 

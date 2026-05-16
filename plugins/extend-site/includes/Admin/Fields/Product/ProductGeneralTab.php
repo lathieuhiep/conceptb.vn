@@ -10,26 +10,17 @@ defined('ABSPATH') || exit;
 
 class ProductGeneralTab implements FieldTabIF
 {
-    public const CODE = 'es_product_code';
     public const COLOR = 'es_product_color';
 
-    private const CMB_CODE = 'paint_cmb_product_code';
     private const CMB_COLOR = 'paint_cmb_options_product_color';
 
     public static function fields(): array
     {
         return [
-            Field::make('text', self::CODE, esc_html__('Mã sản phẩm', 'extend-site')),
-
             Field::make('select', self::COLOR, esc_html__('Chọn bảng màu', 'extend-site'))
                 ->set_help_text(esc_html__('Chọn danh mục chứa bảng màu, nếu danh mục nhiều hơn 1 bảng màu trở lên sẽ hiển thị dạng kiểu vân. Bảng màu được tạo ở mục "Mã màu sơn".', 'extend-site'))
                 ->add_options([self::class, 'get_color_code_categories']),
         ];
-    }
-
-    public static function get_code(int $post_id): string
-    {
-        return (string) self::get_meta_with_fallback($post_id, self::CODE, self::CMB_CODE, '');
     }
 
     public static function get_color_cat_id(int $post_id): int
@@ -40,7 +31,6 @@ class ProductGeneralTab implements FieldTabIF
     public static function get_data(int $post_id): array
     {
         return [
-            'code' => self::get_code($post_id),
             'color_cat_id' => self::get_color_cat_id($post_id),
         ];
     }

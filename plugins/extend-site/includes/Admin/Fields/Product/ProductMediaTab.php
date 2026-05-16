@@ -10,10 +10,8 @@ defined('ABSPATH') || exit;
 class ProductMediaTab implements FieldTabIF
 {
     public const IMAGE_HOVER = 'es_product_image_hover';
-    public const IMAGE_GALLERY = 'es_product_image_gallery';
 
     private const CMB_IMAGE_HOVER = 'paint_cmb_product_image_feature_hover';
-    private const CMB_IMAGE_GALLERY = 'paint_cmb_product_image_gallery';
 
     public static function side_fields(): array
     {
@@ -24,12 +22,7 @@ class ProductMediaTab implements FieldTabIF
 
     public static function fields(): array
     {
-        return [
-            Field::make('media_gallery', self::IMAGE_GALLERY, esc_html__('Album sản phẩm', 'extend-site'))
-                ->set_type('image')
-                ->set_duplicates_allowed(false)
-                ->set_help_text(esc_html__('Ảnh sẽ hiển thị ở chi tiết sản phẩm, nếu không có sẽ thay bằng ảnh đại diện.', 'extend-site')),
-        ];
+        return [];
     }
 
     public static function get_image_hover_id(int $post_id): int
@@ -45,44 +38,10 @@ class ProductMediaTab implements FieldTabIF
         return self::attachment_id_from_cmb_file($post_id, self::CMB_IMAGE_HOVER);
     }
 
-    public static function get_image_gallery_ids(int $post_id): array
-    {
-        $gallery = function_exists('carbon_get_post_meta')
-            ? carbon_get_post_meta($post_id, self::IMAGE_GALLERY)
-            : [];
-
-        if (is_array($gallery) && !empty($gallery)) {
-            return self::normalize_attachment_ids($gallery);
-        }
-
-        $cmb_gallery = get_post_meta($post_id, self::CMB_IMAGE_GALLERY, true);
-
-        if (!is_array($cmb_gallery)) {
-            return [];
-        }
-
-        $image_ids = [];
-
-        foreach ($cmb_gallery as $id => $url) {
-            $image_id = is_numeric($id) ? (int) $id : 0;
-
-            if (!$image_id && is_string($url)) {
-                $image_id = attachment_url_to_postid($url);
-            }
-
-            if ($image_id) {
-                $image_ids[] = $image_id;
-            }
-        }
-
-        return self::normalize_attachment_ids($image_ids);
-    }
-
     public static function get_data(int $post_id): array
     {
         return [
             'image_hover_id' => self::get_image_hover_id($post_id),
-            'image_gallery_ids' => self::get_image_gallery_ids($post_id),
         ];
     }
 
@@ -135,10 +94,5 @@ class ProductMediaTab implements FieldTabIF
             "SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = '_wp_attached_file' AND meta_value = %s LIMIT 1",
             $attached_file
         ));
-    }
-
-    private static function normalize_attachment_ids(array $ids): array
-    {
-        return array_values(array_unique(array_filter(array_map('absint', $ids))));
     }
 }

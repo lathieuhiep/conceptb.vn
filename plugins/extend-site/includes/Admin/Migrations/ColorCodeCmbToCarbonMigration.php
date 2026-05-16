@@ -123,8 +123,7 @@ class ColorCodeCmbToCarbonMigration
                 'paint_number' => $paint_number,
                 'image' => $image_id,
                 'featured_image' => $featured_image_id,
-                'describe' => isset($row['describe']) ? (string) $row['describe'] : '',
-                'note' => isset($row['note']) ? (string) $row['note'] : '',
+                'application_gallery' => [],
             ];
         }
 

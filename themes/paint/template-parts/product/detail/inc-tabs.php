@@ -1,24 +1,10 @@
-<?php
-use ExtendSite\Admin\Fields\Product\ProductGeneralTab;
-
-$code_product = class_exists(ProductGeneralTab::class) ? ProductGeneralTab::get_code(get_the_ID()) : '';
-?>
-
-<?php if ($code_product) : ?>
-    <div class="product-code d-flex align-items-center justify-content-center">
-        <span class="product-code__line d-inline-flex flex-grow-0"></span>
-        <strong class="product-code__text d-inline-flex"><?php echo esc_html($code_product); ?></strong>
-        <span class="product-code__line d-inline-flex flex-grow-0"></span>
-    </div>
-<?php endif; ?>
-
 <div class="tabs-warp">
-    <ul class="nav nav-pills justify-content-center gap-3" id="pills-tab" role="tablist">
+    <ul class="nav nav-pills product-detail-tabs-nav" id="pills-tab" role="tablist">
         <li class="nav-item" role="presentation">
             <button class="nav-link active success-loading" id="color-code-tab" data-bs-toggle="pill"
                     data-bs-target="#color-code"
                     type="button" role="tab" aria-controls="color-code" aria-selected="true">
-                <?php esc_html_e('Mã màu', 'paint'); ?>
+                <?php esc_html_e('Bảng màu', 'paint'); ?>
             </button>
         </li>
 
@@ -26,7 +12,7 @@ $code_product = class_exists(ProductGeneralTab::class) ? ProductGeneralTab::get_
             <button class="nav-link" id="gallery-tab" data-bs-toggle="pill" data-bs-target="#gallery" type="button"
                     role="tab"
                     aria-controls="gallery" aria-selected="false">
-                <?php esc_html_e('Hình ảnh thực tế', 'paint'); ?>
+                <?php esc_html_e('Công trình thực tế', 'paint'); ?>
             </button>
         </li>
 

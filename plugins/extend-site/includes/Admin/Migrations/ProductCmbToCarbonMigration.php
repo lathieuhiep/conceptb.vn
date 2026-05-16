@@ -64,12 +64,6 @@ class ProductCmbToCarbonMigration
 
         $migrated += self::copy_scalar(
             $post_id,
-            'paint_cmb_product_code',
-            ProductGeneralTab::CODE
-        );
-
-        $migrated += self::copy_scalar(
-            $post_id,
             'paint_cmb_options_product_color',
             ProductGeneralTab::COLOR
         );
@@ -78,12 +72,6 @@ class ProductCmbToCarbonMigration
             $post_id,
             'paint_cmb_product_image_feature_hover',
             ProductMediaTab::IMAGE_HOVER
-        );
-
-        $migrated += self::copy_media_gallery(
-            $post_id,
-            'paint_cmb_product_image_gallery',
-            ProductMediaTab::IMAGE_GALLERY
         );
 
         $migrated += self::copy_real_gallery(
@@ -131,43 +119,6 @@ class ProductCmbToCarbonMigration
         }
 
         carbon_set_post_meta($post_id, $new_key, $image_id);
-
-        return 1;
-    }
-
-    private static function copy_media_gallery(int $post_id, string $old_key, string $new_key): int
-    {
-        if (self::has_carbon_value($post_id, $new_key)) {
-            return 0;
-        }
-
-        $old_gallery = get_post_meta($post_id, $old_key, true);
-
-        if (!is_array($old_gallery) || empty($old_gallery)) {
-            return 0;
-        }
-
-        $image_ids = [];
-
-        foreach ($old_gallery as $id => $url) {
-            $image_id = is_numeric($id) ? (int) $id : 0;
-
-            if (!$image_id && is_string($url)) {
-                $image_id = attachment_url_to_postid($url);
-            }
-
-            if ($image_id) {
-                $image_ids[] = $image_id;
-            }
-        }
-
-        $image_ids = array_values(array_unique(array_filter($image_ids)));
-
-        if (empty($image_ids)) {
-            return 0;
-        }
-
-        carbon_set_post_meta($post_id, $new_key, $image_ids);
 
         return 1;
     }

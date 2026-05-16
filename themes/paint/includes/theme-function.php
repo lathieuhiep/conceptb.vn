@@ -382,74 +382,60 @@ add_action('wp_ajax_nopriv_paint_get_color_code_standard', 'paint_get_color_code
 add_action('wp_ajax_paint_get_color_code_standard', 'paint_get_color_code_standard');
 function paint_get_color_code_standard()
 {
-    $idColorCode = (int)$_POST['idColorCode'];
+    $idColorCode = (int) $_POST['idColorCode'];
     $key = isset($_POST['key']) ? (int) $_POST['key'] : -1;
 
     $itemCode = class_exists(ColorCodeStandardTab::class)
         ? ColorCodeStandardTab::get_standard_item($idColorCode, $key)
         : [];
 
-    if ( $itemCode ) {
-?>
-        <div class="box-full-color">
-            <?php
-            if ( $itemCode ) :
-                $image_id = $itemCode['featured_image_id'] ?: $itemCode['image_id'];
-            ?>
-                <div class="item-full">
-                    <figure class="item__thumbnail image-container">
-                        <div class="image-box">
-                            <?php echo wp_get_attachment_image( $image_id, 'medium_large' ); ?>
-                        </div>
-
-                        <div class="zoom-overlay" data-zoom-src="<?php echo esc_url( wp_get_attachment_url( $image_id ) ); ?>"></div>
-                    </figure>
-
-                    <div class="info">
-                        <div class="info__top">
-                            <h4 class="name">
-                                <?php echo esc_html( $itemCode['paint_number'] ); ?>
-                            </h4>
-
-                            <div class="action-box">
-                                <button type="button" class="btn close-full-color">
-                                    <i class="fa-solid fa-xmark"></i>
-                                </button>
-                            </div>
-                        </div>
-
-                        <?php if ( $itemCode['describe'] ) : ?>
-                            <div class="desc txt-box">
-                                <h4 class="txt-box__title">
-                                    <?php esc_html_e('Mô tả mã màu:', 'paint'); ?>
-                                </h4>
-
-                                <div class="desc__content">
-                                    <?php echo wpautop( $itemCode['describe'] ); ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-
-                        <?php if ( $itemCode['note'] ) : ?>
-                            <div class="note txt-box">
-                                <h4 class="txt-box__title">
-                                    <?php esc_html_e('Lưu ý:', 'paint'); ?>
-                                </h4>
-
-                                <div class="note__content">
-                                    <?php echo wpautop( $itemCode['note'] ); ?>
-                                </div>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            <?php else: ?>
-                <p><?php esc_html_e('Thông tin đang cập nhật', 'paint'); ?></p>
-            <?php endif; ?>
-        </div>
-<?php
+    if (!$itemCode) {
+        wp_die();
     }
 
+    $image_id = !empty($itemCode['featured_image_id'])
+        ? (int) $itemCode['featured_image_id']
+        : (int) ($itemCode['image_id'] ?? 0);
+    $application_gallery_ids = !empty($itemCode['application_gallery_ids']) && is_array($itemCode['application_gallery_ids'])
+        ? array_filter(array_map('intval', $itemCode['application_gallery_ids']))
+        : [];
+?>
+        <div class="box-full-color">
+            <div class="item-full color-standard-detail">
+                <div class="color-standard-detail__head">
+                    <h4 class="color-standard-detail__title">
+                        <?php echo esc_html($itemCode['paint_number'] ?? ''); ?>
+                    </h4>
+
+                    <button type="button" class="btn close-full-color color-standard-detail__close">
+                        <i class="fa-solid fa-xmark"></i>
+                    </button>
+                </div>
+
+                <div class="color-standard-detail__body">
+                    <?php if ($image_id) : ?>
+                        <figure class="color-standard-detail__main-image image-container">
+                            <div class="image-box">
+                                <?php echo wp_get_attachment_image($image_id, 'large'); ?>
+                            </div>
+
+                            <div class="zoom-overlay" data-zoom-src="<?php echo esc_url(wp_get_attachment_url($image_id)); ?>"></div>
+                        </figure>
+                    <?php endif; ?>
+
+                    <?php if (!empty($application_gallery_ids)) : ?>
+                        <div class="color-standard-detail__gallery">
+                            <?php foreach ($application_gallery_ids as $gallery_image_id) : ?>
+                                <figure class="color-standard-detail__gallery-image">
+                                    <?php echo wp_get_attachment_image($gallery_image_id, 'medium_large'); ?>
+                                </figure>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+        </div>
+<?php
     wp_die();
 }
 

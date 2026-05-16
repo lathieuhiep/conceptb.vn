@@ -22,7 +22,7 @@ if (!empty($color_code_list)) :
                     <?php echo wp_get_attachment_image($color_code_item['image_id'], 'medium_large'); ?>
                 </figure>
 
-                <div class="info text-center">
+                <div class="info">
                     <?php if (!empty($color_code_name)) : ?>
                         <span class="name">
                             <?php echo esc_html($color_code_name); ?>

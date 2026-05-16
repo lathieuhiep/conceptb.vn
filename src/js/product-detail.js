@@ -228,42 +228,7 @@
             })
         })
 
-        // hover image
-        const imageContainers = $('.image-container')
-
-        imageContainers.each(function() {
-            const container = $(this);
-            const img = container.find('img');
-            const overlay = container.find('.zoom-overlay');
-            const zoomSrc = overlay.data('zoom-src');
-
-            // Cập nhật URL ảnh gốc cho lớp phủ zoom
-            overlay.css('background-image', `url(${zoomSrc})`);
-
-            container.on('mousemove', function(e) {
-                const rect = img[0].getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-
-                // Tính toán vị trí và kích thước của ảnh zoom
-                const scale = 2;
-                const backgroundX = -(x * scale - overlay.width() / 2);
-                const backgroundY = -(y * scale - overlay.height() / 2);
-
-                overlay.css('background-position', `${backgroundX}px ${backgroundY}px`);
-            });
-
-            container.on('mouseenter', function() {
-                img.css('opacity', '0');
-                overlay.css('opacity', '1');
-            });
-
-            container.on('mouseleave', function() {
-                img.css('opacity', '1');
-                overlay.css('opacity', '0');
-                overlay.css('background-position', 'center');
-            });
-        });
+        applyZoomEffect()
 
         // related product
         const relatedProductGrid = $('.related-product__grid')
@@ -325,24 +290,32 @@
             const img = container.find('img');
             const overlay = container.find('.zoom-overlay');
             const zoomSrc = overlay.data('zoom-src');
+            let animationFrame = null;
+            let nextPosition = null;
 
-            // Cập nhật URL ảnh gốc cho lớp phủ zoom
             overlay.css('background-image', `url(${zoomSrc})`);
+            overlay.css('background-size', '200%');
 
-            // Loại bỏ các sự kiện cũ trước khi gắn lại sự kiện mới
             container.off('mousemove.zoom mouseenter.zoom mouseleave.zoom');
 
             container.on('mousemove.zoom', function(e) {
-                const rect = img[0].getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
+                const rect = this.getBoundingClientRect();
+                const x = Math.min(Math.max(e.clientX - rect.left, 0), rect.width);
+                const y = Math.min(Math.max(e.clientY - rect.top, 0), rect.height);
 
-                // Tính toán vị trí và kích thước của ảnh zoom
-                const scale = 2;
-                const backgroundX = -(x * scale - overlay.width() / 2);
-                const backgroundY = -(y * scale - overlay.height() / 2);
+                nextPosition = {
+                    x: (x / rect.width) * 100,
+                    y: (y / rect.height) * 100
+                };
 
-                overlay.css('background-position', `${backgroundX}px ${backgroundY}px`);
+                if (animationFrame) {
+                    return;
+                }
+
+                animationFrame = window.requestAnimationFrame(function() {
+                    overlay.css('background-position', `${nextPosition.x}% ${nextPosition.y}%`);
+                    animationFrame = null;
+                });
             });
 
             container.on('mouseenter.zoom', function() {
@@ -351,6 +324,11 @@
             });
 
             container.on('mouseleave.zoom', function() {
+                if (animationFrame) {
+                    window.cancelAnimationFrame(animationFrame);
+                    animationFrame = null;
+                }
+
                 img.css('opacity', '1');
                 overlay.css('opacity', '0');
                 overlay.css('background-position', 'center');
@@ -361,6 +339,10 @@
 
 document.addEventListener('DOMContentLoaded', (event) => {
     const contentElement = document.getElementById('content-product-detail')
+
+    if (!contentElement) {
+        return
+    }
 
     const simpleBarInstance = new SimpleBar(contentElement, {
         autoHide: false,

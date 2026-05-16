@@ -30,8 +30,9 @@ class ColorCodeStandardTab implements FieldTabIF
                     Field::make('text', 'paint_number', esc_html__('Số hiệu', 'extend-site')),
                     Field::make('image', 'image', esc_html__('Ảnh mã màu', 'extend-site')),
                     Field::make('image', 'featured_image', esc_html__('Ảnh chính', 'extend-site')),
-                    Field::make('rich_text', 'describe', esc_html__('Mô tả', 'extend-site')),
-                    Field::make('rich_text', 'note', esc_html__('Ghi chú', 'extend-site')),
+                    Field::make('media_gallery', 'application_gallery', esc_html__('Ảnh ứng dụng', 'extend-site'))
+                        ->set_type('image')
+                        ->set_duplicates_allowed(false),
                 ])
                 ->set_header_template('<% if (paint_number) { %><%- paint_number %><% } else { %>' . esc_html__('Mã sơn', 'extend-site') . ' <%- $_index + 1 %><% } %>'),
         ];
@@ -96,9 +97,10 @@ class ColorCodeStandardTab implements FieldTabIF
 
             $image_id = self::image_id_from_row($row, 'image');
             $featured_image_id = self::image_id_from_row($row, 'featured_image');
+            $application_gallery_ids = self::gallery_ids_from_row($row, 'application_gallery');
             $paint_number = isset($row['paint_number']) ? (string) $row['paint_number'] : '';
 
-            if (!$image_id && !$featured_image_id && trim($paint_number) === '') {
+            if (!$image_id && !$featured_image_id && empty($application_gallery_ids) && trim($paint_number) === '') {
                 continue;
             }
 
@@ -106,8 +108,7 @@ class ColorCodeStandardTab implements FieldTabIF
                 'paint_number' => $paint_number,
                 'image_id' => $image_id,
                 'featured_image_id' => $featured_image_id,
-                'describe' => isset($row['describe']) ? (string) $row['describe'] : '',
-                'note' => isset($row['note']) ? (string) $row['note'] : '',
+                'application_gallery_ids' => $application_gallery_ids,
             ];
         }
 
@@ -133,6 +134,42 @@ class ColorCodeStandardTab implements FieldTabIF
         }
 
         return 0;
+    }
+
+    private static function gallery_ids_from_row(array $row, string $key): array
+    {
+        if (empty($row[$key]) || !is_array($row[$key])) {
+            return [];
+        }
+
+        $image_ids = [];
+
+        foreach ($row[$key] as $id => $value) {
+            $image_id = 0;
+
+            if (is_numeric($value)) {
+                $image_id = (int) $value;
+            } elseif (is_array($value) && !empty($value['id']) && is_numeric($value['id'])) {
+                $image_id = (int) $value['id'];
+            } elseif (is_string($value)) {
+                $image_id = self::attachment_id_from_url($value);
+
+                if (!$image_id && is_numeric($id) && self::is_valid_image_id((int) $id)) {
+                    $image_id = (int) $id;
+                }
+            }
+
+            if (self::is_valid_image_id($image_id)) {
+                $image_ids[] = $image_id;
+            }
+        }
+
+        return array_values(array_unique(array_filter($image_ids)));
+    }
+
+    private static function is_valid_image_id(int $image_id): bool
+    {
+        return $image_id > 0 && wp_attachment_is_image($image_id);
     }
 
     private static function attachment_id_from_url(string $image_url): int
