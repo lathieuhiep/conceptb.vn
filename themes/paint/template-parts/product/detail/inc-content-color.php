@@ -5,18 +5,11 @@ $color_code_name = class_exists(ColorCodeStandardTab::class) ? ColorCodeStandard
 $color_code_list = class_exists(ColorCodeStandardTab::class) ? ColorCodeStandardTab::get_standard(get_the_ID()) : [];
 
 if (!empty($color_code_list)) :
-    $i = 1;
     ?>
 
     <div class="group-color__grid" data-color-code-id="<?php echo esc_attr( get_the_ID() ); ?>">
-        <?php
-        foreach ($color_code_list as $key => $color_code_item) :
-            if ($i == 1 || $i % 3 == 1) :
-        ?>
-            <div class="list-color">
-
-        <?php endif; ?>
-
+        <div class="list-color">
+            <?php foreach ($color_code_list as $key => $color_code_item) : ?>
             <div class="item">
                 <figure class="item__thumbnail" data-key="<?php echo esc_attr($key); ?>">
                     <?php echo wp_get_attachment_image($color_code_item['image_id'], 'medium_large'); ?>
@@ -34,14 +27,8 @@ if (!empty($color_code_list)) :
                     </span>
                 </div>
             </div>
-
-        <?php if ($i % 3 == 0 || $i == count($color_code_list)) : ?>
-            </div>
-        <?php
-        endif;
-            $i++;
-        endforeach;
-        ?>
+            <?php endforeach; ?>
+        </div>
     </div>
 
 <?php

@@ -165,7 +165,7 @@
             if ( !hasClassActive && !isLoading ) {
                 isLoading = true
                 const spinnerBox = thisItem.find('.spinner-load-color')
-                const row = thisItem.closest('.list-color')
+                const listColor = thisItem.closest('.list-color')
 
                 groupColorGrid.find('.item').removeClass('active')
 
@@ -194,11 +194,7 @@
                         }
                     },
                     success: function (result) {
-                        if ( $(window).width() > 479 ) {
-                            row.after(result)
-                        } else {
-                            thisItem.after(result)
-                        }
+                        getLastColorItemInRow(listColor, thisItem).after(result)
 
                         spinnerBox.addClass('d-none');
                     },
@@ -281,6 +277,15 @@
         findBoxFullColor.slideDown()
 
         thisItem.addClass('active')
+    }
+
+    function getLastColorItemInRow(listColor, thisItem) {
+        const currentTop = thisItem[0].offsetTop
+        const itemsInRow = listColor.find('> .item').filter(function () {
+            return this.offsetTop === currentTop
+        })
+
+        return itemsInRow.last()
     }
 
     //

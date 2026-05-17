@@ -1,6 +1,21 @@
-<?php get_header(); ?>
+<?php
+use ExtendSite\Admin\Fields\Product\ProductMediaTab;
 
-    <div class="site-container site-single-product font-f-seconder" data-product-id="<?php echo esc_attr(get_the_ID()) ?>">
+get_header();
+
+$product_id = get_the_ID();
+$banner_id = class_exists(ProductMediaTab::class) ? ProductMediaTab::get_banner_id($product_id) : 0;
+?>
+
+    <?php if ($banner_id) : ?>
+        <div class="product-banner element-banner">
+            <?php echo wp_get_attachment_image($banner_id, 'full', false, [
+                'class' => 'w-100',
+            ]); ?>
+        </div>
+    <?php endif; ?>
+
+    <div class="site-single-product font-f-seconder" data-product-id="<?php echo esc_attr(get_the_ID()) ?>">
         <div class="container">
             <div class="row">
                 <?php if (is_active_sidebar('paint-sidebar-product-detail')) : ?>

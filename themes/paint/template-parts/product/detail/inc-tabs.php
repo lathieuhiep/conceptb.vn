@@ -20,7 +20,7 @@
             <button class="nav-link" id="product-construction-process-tab" data-bs-toggle="pill"
                     data-bs-target="#product-construction-process"
                     type="button"
-                    role="tab" aria-controls="construction-process" aria-selected="false">
+                    role="tab" aria-controls="product-construction-process" aria-selected="false">
                 <?php esc_html_e('Quy trình thi công', 'paint'); ?>
             </button>
         </li>

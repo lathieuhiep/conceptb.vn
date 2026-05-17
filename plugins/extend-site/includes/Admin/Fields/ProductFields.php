@@ -26,6 +26,10 @@ class ProductFields
             ->set_context('normal')
             ->set_priority('high')
             ->add_tab(
+                esc_html__('Banner', 'extend-site'),
+                ProductMediaTab::fields()
+            )
+            ->add_tab(
                 esc_html__('Thông số kỹ thuật', 'extend-site'),
                 ProductInfoTab::technical_spec_fields()
             )

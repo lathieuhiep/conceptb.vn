@@ -9,6 +9,7 @@ defined('ABSPATH') || exit;
 
 class ProductMediaTab implements FieldTabIF
 {
+    public const BANNER = 'es_product_banner';
     public const IMAGE_HOVER = 'es_product_image_hover';
 
     private const CMB_IMAGE_HOVER = 'paint_cmb_product_image_feature_hover';
@@ -22,7 +23,18 @@ class ProductMediaTab implements FieldTabIF
 
     public static function fields(): array
     {
-        return [];
+        return [
+            Field::make('image', self::BANNER, esc_html__('Banner', 'extend-site')),
+        ];
+    }
+
+    public static function get_banner_id(int $post_id): int
+    {
+        $image_id = function_exists('carbon_get_post_meta')
+            ? (int) carbon_get_post_meta($post_id, self::BANNER)
+            : 0;
+
+        return $image_id && wp_attachment_is_image($image_id) ? $image_id : 0;
     }
 
     public static function get_image_hover_id(int $post_id): int
@@ -41,6 +53,7 @@ class ProductMediaTab implements FieldTabIF
     public static function get_data(int $post_id): array
     {
         return [
+            'banner_id' => self::get_banner_id($post_id),
             'image_hover_id' => self::get_image_hover_id($post_id),
         ];
     }

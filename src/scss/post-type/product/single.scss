@@ -7,6 +7,9 @@
 .site-single-product {
   --product-sidebar-sticky-top: 3rem;
 
+  padding-top: 2.4rem;
+  padding-bottom: 9rem;
+
   > .container {
     > .row {
       align-items: stretch;
@@ -22,6 +25,10 @@
       @media (min-width: 768px) {
         position: sticky;
         top: var(--product-sidebar-sticky-top);
+      }
+
+      @media (max-width: 767px) {
+        padding-top: 0;
       }
     }
 
@@ -605,12 +612,16 @@
         grid-gap: 3rem;
         @include transition();
 
-        @media (min-width: 480px) {
+        @media (min-width: 992px) {
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (min-width: 576px) and (max-width: 991px) {
           grid-template-columns: repeat(3, 1fr);
         }
 
-        ~ .list-color {
-          margin-top: 3rem;
+        @media (min-width: 480px) and (max-width: 575px) {
+          grid-template-columns: repeat(2, 1fr);
         }
 
         .item {
@@ -624,10 +635,18 @@
             @include transition();
           }
 
+          .paint-number {
+            @include transition();
+          }
+
           &:hover,
           &.active {
             .item__thumbnail {
               box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+            }
+
+            .paint-number {
+              font-weight: 600;
             }
           }
 
@@ -679,7 +698,6 @@
           }
 
           .info {
-            margin-top: 1.2rem;
             color: #2D3238;
 
             span {
@@ -727,7 +745,8 @@
 
         .box-full-color {
           display: none;
-          margin-top: 3rem;
+          grid-column: 1 / -1;
+          margin-top: 0;
 
           .item-full {
             display: grid;
@@ -945,6 +964,336 @@
     .construction-process-product {
       max-width: 90rem;
       margin: 0 auto;
+
+      &__overview {
+        margin-bottom: 2.8rem;
+        color: #2f3338;
+        font-size: 1.5rem;
+        line-height: 1.6;
+
+        h2,
+        h3,
+        h4 {
+          margin: 0 0 1.6rem;
+          color: #252b33;
+          font-weight: 700;
+          line-height: 1.3;
+        }
+
+        p {
+          margin-bottom: 1.2rem;
+        }
+
+        img {
+          display: block;
+          max-width: 100%;
+          height: auto;
+          margin: 1.6rem auto;
+          border-radius: .8rem;
+        }
+
+        table {
+          width: 100%;
+          margin: 1.6rem 0;
+          border-collapse: collapse;
+          overflow: hidden;
+          border: .1rem solid #e3e3e3;
+          border-radius: .8rem;
+          font-size: 1.3rem;
+
+          th,
+          td {
+            padding: 1rem 1.2rem;
+            border: .1rem solid #e3e3e3;
+            vertical-align: top;
+          }
+
+          th {
+            color: #252b33;
+            font-weight: 700;
+            background-color: #f4f4f4;
+          }
+        }
+      }
+
+      .accordion-process {
+        display: grid;
+        grid-gap: 1.6rem;
+      }
+
+      .accordion-item {
+        overflow: hidden;
+        border: 0;
+        border-radius: 1.6rem;
+        background-color: #ffffff;
+        box-shadow: 0 .6rem 2.4rem rgba(0, 0, 0, .1);
+      }
+
+      .accordion-button {
+        display: grid;
+        grid-template-columns: 6.4rem minmax(0, 1fr) max-content;
+        grid-gap: 1.6rem;
+        align-items: center;
+        padding: 2rem 2.4rem;
+        color: #252b33;
+        background-color: #ffffff;
+        border: 0;
+        box-shadow: none;
+
+        @media (max-width: 575px) {
+          grid-template-columns: 4.8rem minmax(0, 1fr) max-content;
+          grid-gap: 1rem;
+          padding: 1.6rem;
+        }
+
+        &:after {
+          width: 3.2rem;
+          height: 3.2rem;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          margin-left: 0;
+          border-radius: .8rem;
+          background-color: #f1f1f1;
+          background-position: center;
+          background-size: 1.4rem;
+        }
+
+        &:not(.collapsed) {
+          color: #252b33;
+          background-color: #ffffff;
+          box-shadow: none;
+        }
+      }
+
+      .accordion-body {
+        padding: 0 2.4rem 2.4rem;
+
+        @media (max-width: 575px) {
+          padding: 0 1.6rem 1.6rem;
+        }
+      }
+
+      .construction-process-step {
+        &__number {
+          color: #252b33;
+          font-size: 5.6rem;
+          font-weight: 800;
+          line-height: 1;
+
+          @media (max-width: 575px) {
+            font-size: 4rem;
+          }
+        }
+
+        &__heading {
+          min-width: 0;
+          display: grid;
+          grid-gap: .6rem;
+        }
+
+        &__title {
+          font-size: 2.4rem;
+          font-weight: 800;
+          line-height: 1.2;
+
+          @media (max-width: 575px) {
+            font-size: 1.8rem;
+          }
+        }
+
+        &__subtitle {
+          color: #252b33;
+          font-size: 1.7rem;
+          font-weight: 400;
+          line-height: 1.35;
+
+          @media (max-width: 575px) {
+            font-size: 1.4rem;
+          }
+        }
+
+        &__content {
+          color: #333333;
+          font-size: 1.5rem;
+          line-height: 1.6;
+
+          p {
+            margin-bottom: 1.2rem;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+
+      .construction-process-cards {
+        display: grid;
+        grid-gap: 1.6rem;
+
+        @media (min-width: 768px) {
+          grid-template-columns: repeat(4, minmax(0, 1fr));
+        }
+
+        @media (min-width: 480px) and (max-width: 767px) {
+          grid-template-columns: repeat(2, minmax(0, 1fr));
+        }
+      }
+
+      .construction-process-card {
+        overflow: hidden;
+        border-radius: 1.2rem;
+        background-color: #F2F2F2;
+
+        &__image {
+          margin: 0;
+          aspect-ratio: 4 / 3;
+          overflow: hidden;
+          background-color: #f5f5f5;
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        &__body {
+          padding: 1.2rem;
+        }
+
+        &__title {
+          margin: 0 0 .8rem;
+          color: #252b33;
+          font-size: 1.4rem;
+          font-weight: 700;
+          line-height: 1.35;
+        }
+
+        &__content {
+          color: #444444;
+          font-size: 1.25rem;
+          line-height: 1.5;
+
+          p {
+            margin-bottom: .8rem;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
+
+      .construction-process-image-columns {
+        display: grid;
+        grid-gap: 2rem;
+
+        @media (min-width: 768px) {
+          grid-template-columns: minmax(18rem, 28%) minmax(0, 1fr);
+          align-items: start;
+        }
+
+        &__image {
+          margin: 0;
+          overflow: hidden;
+          border-radius: .8rem;
+          background-color: #f5f5f5;
+
+          img {
+            width: 100%;
+            height: auto;
+            object-fit: cover;
+          }
+        }
+
+        &__body {
+          min-width: 0;
+        }
+
+        &__intro,
+        &__outro {
+          color: #333333;
+          font-size: 1.45rem;
+          line-height: 1.55;
+
+          p {
+            margin-bottom: 1.2rem;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+
+        &__intro {
+          margin-bottom: 1.2rem;
+        }
+
+        &__outro {
+          margin-top: 1.2rem;
+        }
+
+        &__table {
+          display: grid;
+          overflow: hidden;
+          border: .1rem solid #e1e1e1;
+          border-radius: .8rem;
+
+          @media (min-width: 768px) {
+            grid-auto-flow: column;
+            grid-auto-columns: minmax(0, 1fr);
+          }
+        }
+
+        &__column {
+          min-width: 0;
+
+          @media (min-width: 768px) {
+            border-left: .1rem solid #e1e1e1;
+
+            &:first-child {
+              border-left: 0;
+            }
+          }
+
+          @media (max-width: 767px) {
+            border-top: .1rem solid #e1e1e1;
+
+            &:first-child {
+              border-top: 0;
+            }
+          }
+        }
+
+        &__title {
+          margin: 0;
+          padding: 1.2rem 1.6rem;
+          color: #252b33;
+          font-size: 1.5rem;
+          font-weight: 800;
+          line-height: 1.35;
+          text-align: center;
+          background-color: #f3f3f3;
+          border-bottom: .1rem solid #e1e1e1;
+        }
+
+        &__content {
+          padding: 1.6rem;
+          color: #333333;
+          font-size: 1.45rem;
+          line-height: 1.55;
+
+          p {
+            margin-bottom: 1.2rem;
+
+            &:last-child {
+              margin-bottom: 0;
+            }
+          }
+        }
+      }
     }
   }
 
