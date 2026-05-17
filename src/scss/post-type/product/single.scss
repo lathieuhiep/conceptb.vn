@@ -421,8 +421,7 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 0;
-      max-width: 82rem;
-      margin: 0 auto 3rem;
+      margin-bottom: 3rem;
       padding: 0;
       overflow: hidden;
       border-radius: .6rem;
@@ -863,7 +862,7 @@
               grid-gap: 1.6rem;
 
               @media (min-width: 992px) {
-                grid-template-columns: minmax(0, 1fr) 28rem;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
               }
             }
 
@@ -884,6 +883,12 @@
             &__main-image {
               aspect-ratio: 16 / 10;
 
+              @media (min-width: 992px) {
+                grid-column: span 2;
+                grid-row: span 2;
+                aspect-ratio: auto;
+              }
+
               .image-box {
                 height: 100%;
               }
@@ -892,6 +897,10 @@
             &__gallery {
               display: grid;
               grid-gap: 1.6rem;
+
+              @media (min-width: 992px) {
+                display: contents;
+              }
 
               @media (max-width: 991px) {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
