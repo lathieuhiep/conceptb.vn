@@ -11,7 +11,7 @@ if ( empty( $data ) ) {
 
 <div class="element-about">
     <div class="container">
-        <h2 class="element-about__heading element-page-heading mb-19 text-center">
+        <h2 class="element-about__heading element-page-heading mb-13 text-center">
             <?= esc_html($data['heading']); ?>
         </h2>
     </div>
@@ -26,7 +26,7 @@ if ( empty( $data ) ) {
         </div>
 
         <div class="container">
-            <div class="mw-1214 mh-inherit">
+            <div class="mw-1214 mh-inherit d-flex align-items-center">
                 <div class="element-about__content">
                     <h3 class="sub-heading"><?= esc_html($data['sub_heading']); ?></h3>
 

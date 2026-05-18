@@ -156,6 +156,12 @@ async function buildTemplateStyles() {
     compilerFolderScss('templates')
 }
 
+function buildChangedTemplateStyle(filePath) {
+    const relativeFile = getScssRelativePath(filePath)
+
+    return compilerFileScss(relativeFile, 'templates')
+}
+
 // Task build post type
 async function buildPostType() {
     compilerFolderScss('post-type', '*/**.scss')
@@ -322,8 +328,12 @@ async function watchRun() {
 
     watch([
         `${pathSrc}/scss/components/*.scss`,
-        `${pathSrc}/scss/templates/*.scss`
     ], buildTemplateStyles)
+
+    const templateWatcher = watch(`${pathSrc}/scss/templates/*.scss`)
+
+    templateWatcher.on('change', buildChangedTemplateStyle)
+    templateWatcher.on('add', buildChangedTemplateStyle)
     
     watch([
         `${pathSrc}/scss/components/*.scss`,

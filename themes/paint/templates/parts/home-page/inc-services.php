@@ -11,7 +11,7 @@ if ( empty($data) ) {
 
 <div class="element-services">
     <div class="container">
-        <h2 class="element-services__heading element-page-heading mb-lg-19 text-center">
+        <h2 class="element-services__heading element-page-heading mb-lg-13 text-center">
             <?= esc_html($data['heading']); ?>
         </h2>
 

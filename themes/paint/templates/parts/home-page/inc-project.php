@@ -10,7 +10,7 @@ if (!empty($data['items'])) :
         <div class="element-project__top">
             <div class="container">
                 <?php if (!empty($data['title'])) : ?>
-                    <h2 class="element-page-heading element-page-heading mb-lg-18 text-center">
+                    <h2 class="element-page-heading element-page-heading mb-lg-13 text-center">
                         <?php echo esc_html($data['title']); ?>
                     </h2>
                 <?php endif; ?>

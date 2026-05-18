@@ -12,17 +12,17 @@
                     type: 'loop',
                     drag: false,
                     focus: 'center',
-                    perPage: 6,
+                    fixedWidth: '162px',
+                    height: '104px',
                     gap: '10rem',
                     arrows: false,
                     pagination: false,
-                    autoWidth: true,
                     autoScroll: { speed: 1, pauseOnHover: false, pauseOnFocus: false },
                     breakpoints: {
-                        1199: { perPage: 5, gap: '8rem' },
-                        991:  { perPage: 4, gap: '6rem' },
-                        767:  { perPage: 3, gap: '4rem' },
-                        575:  { perPage: 2, gap: '2rem' },
+                        1199: { gap: '8rem' },
+                        991:  { gap: '6rem' },
+                        767:  { gap: '4rem' },
+                        575:  { gap: '2rem' },
                     }
                 });
                 splide.mount(window.splide.Extensions);
@@ -40,107 +40,37 @@
                     type: 'loop',
                     drag: false,
                     focus: 'center',
-                    fixedWidth: '529px',
-                    height: '397px',
+                    fixedWidth: '408px',
+                    height: '306px',
                     gap: '12px',
                     arrows: false,
                     pagination: false,
                     direction: direction,
                     autoScroll: { speed: 1, pauseOnHover: false, pauseOnFocus: false },
+                    breakpoints: {
+                        1199: {
+                            fixedWidth: '360px',
+                            height: '270px',
+                        },
+                        991: {
+                            fixedWidth: '320px',
+                            height: '240px',
+                        },
+                        767: {
+                            fixedWidth: '260px',
+                            height: '195px',
+                            gap: '10px',
+                        },
+                        575: {
+                            fixedWidth: '60vw',
+                            height: '45vw',
+                            gap: '8px',
+                        },
+                    }
                 });
                 splide.mount(window.splide.Extensions);
             });
         }
-    };
-
-    // Stacked Cards — pin section + các card trượt từ dưới lên đè nhau
-    const initStack = () => {
-        if (!window.matchMedia("(min-width:1200px)").matches) return;
-
-        const stack = document.getElementById('productStack');
-        const warp  = document.getElementById('cardWarp');
-        if (!stack || !warp) return;
-
-        const cards = gsap.utils.toArray('#cardWarp .card-box');
-        const total = cards.length;
-        if (total < 2) return;
-
-        const REVEAL = 24; // px mỗi card lộ ra khi bị đè
-
-        const getCardH = () => cards[0].offsetHeight;
-
-        // Set z-index một lần
-        cards.forEach((card, i) => {
-            gsap.set(card, { zIndex: i + 1 });
-        });
-
-        let ctx = null;
-
-        const build = () => {
-            // Kill context cũ
-            if (ctx) ctx.revert();
-
-            const cardH = getCardH();
-            warp.style.height = cardH + 'px';
-
-            ctx = gsap.context(() => {
-                // Reset tất cả cards về vị trí ban đầu
-                cards.forEach((card, i) => {
-                    gsap.set(card, {
-                        y: i === 0 ? 0 : cardH + i * REVEAL,
-                        scale: 1,
-                        opacity: 1
-                    });
-                });
-
-                const tl = gsap.timeline({
-                    scrollTrigger: {
-                        trigger: stack,
-                        start: "top top",
-                        end: () => `+=${(total - 1) * window.innerHeight}`,
-                        pin: true,
-                        scrub: true ,
-                        anticipatePin: 1,
-                        invalidateOnRefresh: true,
-                        refreshPriority: 1,
-                    }
-                });
-
-                cards.forEach((card, i) => {
-                    if (i === 0) return;
-
-                    const targetY = i * REVEAL;
-
-                    tl.to(card,
-                        {
-                            y: targetY,
-                            ease: "none",
-                            duration: 1
-                        },
-                        i - 1  // mỗi card chiếm 1 unit trong timeline
-                    );
-                });
-            });
-        };
-
-        build();
-
-        // Rebuild khi resize (debounce)
-        let resizeTimer;
-        const onResize = () => {
-            clearTimeout(resizeTimer);
-            resizeTimer = setTimeout(() => {
-                if (!window.matchMedia("(min-width:1200px)").matches) {
-                    if (ctx) ctx.revert();
-                    warp.style.height = '';
-                    return;
-                }
-                build();
-                ScrollTrigger.refresh();
-            }, 200);
-        };
-
-        window.addEventListener('resize', onResize);
     };
 
     // Khởi tạo GSAP Services Reveal
@@ -266,7 +196,6 @@
 
         requestAnimationFrame(() => {
             requestAnimationFrame(() => {
-                initStack();
                 ScrollTrigger.refresh();
             });
 

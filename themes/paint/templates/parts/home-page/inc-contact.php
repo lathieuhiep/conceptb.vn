@@ -10,7 +10,7 @@ if ( empty($data) ) {
 ?>
 <div class="element-contact">
     <div class="container">
-        <h2 class="element-contact__heading element-page-heading mb-lg-19 text-center">
+        <h2 class="element-contact__heading element-page-heading mb-lg-13 text-center">
             <?= esc_html($data['heading']); ?>
         </h2>
         <?php if ( !empty( $data['form_id'] ) ) : ?>

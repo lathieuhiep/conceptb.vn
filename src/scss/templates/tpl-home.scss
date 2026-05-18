@@ -2,7 +2,7 @@
 
 .element-page-heading {
   --mb-heading: 6rem;
-  --fs-heading: 10rem;
+  --fs-heading: 6.8rem;
 
   font-weight: 900;
   line-height: 1.2;
@@ -190,24 +190,11 @@
 // element partner
 .element-partner {
   &__warp {
-    margin: 0 auto;
-
-    @media (min-width: 1200px) {
-      max-width: 90%;
-    }
-
-    @media (max-width: 1199px) {
-      padding: 0 1.2rem;
-    }
-
     img {
-      @media (min-width: 992px) {
-        max-width: 16.5rem;
-      }
-
-      @media (max-width: 991px) {
-        max-width: 12rem;
-      }
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      object-position: center;
     }
   }
 }
@@ -223,6 +210,10 @@
       overflow: hidden;
       border-radius: 2.7rem;
 
+      @media (max-width: 767px) {
+        border-radius: 1.8rem;
+      }
+
       img {
         width: 100%;
         height: 100%;
@@ -235,11 +226,12 @@
 
 // element about
 .element-about {
-  padding-top: 8rem;
+  padding-top: 5.2rem;
 
   &__body {
     position: relative;
-    min-height: 94.6rem;
+    padding: 2.4rem 0;
+    min-height: 82.9rem;
     background-color: rgba(0, 0, 0, 0.2);
     overflow: hidden;
 
@@ -267,20 +259,18 @@
     position: relative;
     z-index: 2;
     max-width: 68rem;
-    min-height: inherit;
     color: #fff;
-    border: 1px solid #979797;
     box-sizing: border-box;
     background-color: rgba(27, 27, 27, 0.84);
     backdrop-filter: blur(10.6px);
     -webkit-backdrop-filter: blur(10.6px);
 
     @media (min-width: 1200px) {
-      padding: 10.8rem 6rem;
+      padding: 6rem;
     }
 
     @media (min-width: 992px) and (max-width: 1199px) {
-      padding: 6rem;
+      padding: 4rem;
     }
 
     @media (max-width: 991px) {
@@ -304,12 +294,12 @@
     }
 
     .description {
-      font-size: 2.4rem;
+      font-size: 1.6rem;
       text-align: justify;
 
       p {
         &:not(:last-child) {
-          margin-bottom: 4.4rem;
+          margin-bottom: 3.2rem;
         }
       }
 
@@ -432,65 +422,24 @@
     }
   }
 
-  .pin-spacer {
-    @media (max-width: 1199px) {
-      height: auto !important;
-      width: 100% !important;
-      padding: 0 !important;
-      translate: none !important;
-      rotate: none;
-      scale: none;
-      inset: 0 !important;
-      margin: 0 !important;
-      max-width: 100% !important;
-      max-height: none !important;
-      transform: none !important;
-    }
-  }
-
   &__stack {
     padding: 10rem 0;
-
-    @media (max-width: 1199px) {
-      height: auto !important;
-      width: 100% !important;
-      max-width: 100% !important;
-      max-height: none !important;
-      inset: 0 !important;
-      transform: none !important;
-    }
   }
 
   .card-warp {
     position: relative;
-
-    @media (max-width: 1199px) {
-      height: auto !important;
-      width: 100% !important;
-    }
   }
 
   .card-box {
-    padding: 4.5rem;
+    padding: 4.2rem;
     color: $color-white;
     background: #1C1B1C;
     border: .2rem solid #FFE9A7;
     border-radius: 4rem;
     overflow: hidden;
 
-    @media (min-width: 1200px) {
-      position: absolute;
-      top: 0;
-      left: 12px;
-      right: 12px;
-    }
-
-    @media (max-width: 1199px) {
-      transform: none !important;
-
-      &:not(:last-child) {
-        margin-bottom: 2.4rem;
-      }
+    &:not(:last-child) {
+      margin-bottom: 2.4rem;
     }
 
     @media (max-width: 991px) {
@@ -498,7 +447,7 @@
     }
 
     .number {
-      font-size: 7.6rem;
+      font-size: 7.3rem;
       font-weight: 900;
       line-height: 1;
       flex: 0 0 auto;
@@ -514,7 +463,7 @@
       line-height: 1.2;
 
       @media (min-width: 768px) {
-        font-size: 4rem;
+        font-size: 3.8rem;
       }
 
       @media (max-width: 767px) {
@@ -523,7 +472,7 @@
     }
 
     .subtitle {
-      font-size: 2.5rem;
+      font-size: 2.4rem;
       line-height: 1;
     }
 
@@ -550,7 +499,7 @@
 
       @media (min-width: 768px) {
         align-items: center;
-        margin-bottom: 7.6rem;
+        margin-bottom: 7.2rem;
       }
 
       @media (max-width: 767px) {
@@ -593,7 +542,7 @@
         }
 
         @media (min-width: 576px) {
-          height: 31.2rem;
+          height: 30rem;
         }
 
         img {
@@ -609,7 +558,7 @@
         border-radius: 3rem;
 
         @media (min-width: 768px) {
-          aspect-ratio: 282 / 127;
+          aspect-ratio: 271 / 122;
         }
 
         img {
