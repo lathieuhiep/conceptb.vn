@@ -10,7 +10,7 @@ if ( !empty($data['gallery']) ) :
         <div class="element-volunteer__top mb-4">
             <div class="container">
                 <?php if (!empty($data['title'])) : ?>
-                    <h2 class="element-page-heading element-page-heading mb-lg-13 text-center">
+                    <h2 class="element-page-heading text-center">
                         <?php echo esc_html($data['title']); ?>
                     </h2>
                 <?php endif; ?>
