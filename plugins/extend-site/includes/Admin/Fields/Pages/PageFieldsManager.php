@@ -23,6 +23,7 @@ class PageFieldsManager {
     {
         DefaultFields::register();
         HomeFields::register();
+        FaqFields::register();
         // ContactFields::register();
         // LandingFields::register();
     }

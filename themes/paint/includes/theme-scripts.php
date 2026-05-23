@@ -189,6 +189,14 @@ function paint_register_front_end(): void
         wp_enqueue_script('count-up-scroll', get_theme_file_uri('/assets/js/count-up-scroll.min.js'), array('jquery'), '', true);
     }
 
+    if (is_page_template('templates/faq.php')) {
+        wp_enqueue_script('template-faq', get_theme_file_uri('/assets/js/template-faq.min.js'), array(), '1.0.0', true);
+        wp_localize_script('template-faq', 'faqAjax', array(
+            'url' => $paint_admin_url_ajax,
+            'nonce' => wp_create_nonce('paint_faq_nonce'),
+        ));
+    }
+
     if ( is_singular('paint_product') ) {
         wp_enqueue_script('simplebar');
         wp_enqueue_script('masonry.min', get_theme_file_uri('/assets/libs/masonry/masonry.min.js'), array('jquery'), '', true);

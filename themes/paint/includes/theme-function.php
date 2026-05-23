@@ -43,6 +43,179 @@ function paint_get_field_tab_data(string $class_name, int $post_id = null): arra
     return [];
 }
 
+function paint_get_faq_taxonomy(): string
+{
+    return 'paint_faq_cat';
+}
+
+function paint_get_faq_query_args(string $keyword = '', int $term_id = 0, int $limit = -1): array
+{
+    $args = [
+        'post_type' => 'paint_faq',
+        'post_status' => 'publish',
+        'posts_per_page' => $limit,
+        'orderby' => paint_get_option('template_faq_opt_order_by', 'id'),
+        'order' => paint_get_option('template_faq_opt_order', 'ASC'),
+        'ignore_sticky_posts' => 1,
+    ];
+
+    if ($keyword !== '') {
+        $args['s'] = $keyword;
+    }
+
+    if ($term_id > 0) {
+        $args['tax_query'] = [
+            [
+                'taxonomy' => paint_get_faq_taxonomy(),
+                'field' => 'term_id',
+                'terms' => [$term_id],
+            ],
+        ];
+    }
+
+    return $args;
+}
+
+function paint_render_faq_item(WP_Post $post, int $index = 0): string
+{
+    $item_id = 'faq-item-' . $post->ID;
+    $is_open = $index === 0;
+
+    ob_start();
+    ?>
+    <article class="faq-item<?php echo esc_attr($is_open ? ' is-open' : ''); ?>" data-faq-item data-faq-id="<?php echo esc_attr($post->ID); ?>">
+        <button class="faq-item__toggle<?php echo esc_attr($is_open ? '' : ' collapsed'); ?>" type="button" data-bs-toggle="collapse" data-bs-target="#<?php echo esc_attr($item_id); ?>" data-bs-parent="#faq-list" aria-expanded="<?php echo esc_attr($is_open ? 'true' : 'false'); ?>" aria-controls="<?php echo esc_attr($item_id); ?>">
+            <span class="faq-item__question">
+                <i class="fa-regular fa-circle-question" aria-hidden="true"></i>
+                <span><?php echo esc_html(get_the_title($post)); ?></span>
+            </span>
+            <i class="faq-item__arrow fa-solid fa-arrow-up-right-from-square" aria-hidden="true"></i>
+        </button>
+
+        <div class="faq-item__panel collapse<?php echo esc_attr($is_open ? ' show' : ''); ?>" id="<?php echo esc_attr($item_id); ?>">
+            <div class="faq-item__content">
+                <?php echo apply_filters('the_content', $post->post_content); ?>
+            </div>
+        </div>
+    </article>
+    <?php
+
+    return ob_get_clean();
+}
+
+function paint_get_faq_response(string $keyword = '', int $term_id = 0, int $limit = -1, bool $include_items = true): array
+{
+    $query_limit = $include_items ? $limit : 10;
+    $query = new WP_Query(paint_get_faq_query_args($keyword, $term_id, $query_limit));
+    $items_html = '';
+    $suggestions = [];
+    $index = 0;
+
+    if ($query->have_posts()) {
+        foreach ($query->posts as $post) {
+            if ($include_items) {
+                $items_html .= paint_render_faq_item($post, $index);
+            }
+
+            if ($keyword !== '' && count($suggestions) < 10) {
+                $suggestions[] = [
+                    'id' => $post->ID,
+                    'title' => get_the_title($post),
+                ];
+            }
+
+            $index++;
+        }
+    }
+
+    wp_reset_postdata();
+
+    if ($include_items && $items_html === '') {
+        $items_html = '<div class="faq-empty">' . esc_html__('Không tìm thấy câu hỏi phù hợp.', 'paint') . '</div>';
+    }
+
+    $active_term = null;
+    if ($term_id > 0) {
+        $active_term = get_term($term_id, paint_get_faq_taxonomy());
+    }
+
+    if ($active_term && !is_wp_error($active_term)) {
+        $section_title = sprintf(
+            esc_html__('Câu hỏi %1$s - %2$d câu', 'paint'),
+            $active_term->name,
+            (int) $query->found_posts
+        );
+    } elseif ($keyword !== '') {
+        $section_title = sprintf(
+            esc_html__('Kết quả tìm kiếm - %d câu', 'paint'),
+            (int) $query->found_posts
+        );
+    } else {
+        $section_title = sprintf(
+            esc_html__('Tất cả câu hỏi - %d câu', 'paint'),
+            (int) $query->found_posts
+        );
+    }
+
+    $matched_terms = [];
+    $matched_term_counts = [];
+    if ($keyword !== '') {
+        $matched_query = new WP_Query([
+            'post_type' => 'paint_faq',
+            'post_status' => 'publish',
+            'posts_per_page' => -1,
+            'fields' => 'ids',
+            's' => $keyword,
+            'ignore_sticky_posts' => 1,
+        ]);
+
+        if (!empty($matched_query->posts)) {
+            $matched_term_counts[0] = count($matched_query->posts);
+            foreach ($matched_query->posts as $post_id) {
+                $terms = get_the_terms($post_id, paint_get_faq_taxonomy());
+
+                if (empty($terms) || is_wp_error($terms)) {
+                    continue;
+                }
+
+                foreach ($terms as $term) {
+                    $term_id = (int)$term->term_id;
+                    $matched_term_counts[$term_id] = ($matched_term_counts[$term_id] ?? 0) + 1;
+                }
+            }
+
+            $matched_terms = array_values(array_map('intval', array_keys($matched_term_counts)));
+        }
+
+        wp_reset_postdata();
+    }
+
+    return [
+        'items_html' => $items_html,
+        'include_items' => $include_items,
+        'suggestions' => $suggestions,
+        'matched_terms' => $matched_terms,
+        'matched_term_counts' => $matched_term_counts,
+        'total' => (int) $query->found_posts,
+        'active_term' => $term_id,
+        'section_title' => $section_title,
+    ];
+}
+
+add_action('wp_ajax_nopriv_paint_filter_faq', 'paint_filter_faq');
+add_action('wp_ajax_paint_filter_faq', 'paint_filter_faq');
+function paint_filter_faq(): void
+{
+    check_ajax_referer('paint_faq_nonce', 'nonce');
+
+    $keyword = isset($_POST['keyword']) ? sanitize_text_field(wp_unslash($_POST['keyword'])) : '';
+    $term_id = isset($_POST['term_id']) ? absint($_POST['term_id']) : 0;
+    $mode = isset($_POST['mode']) ? sanitize_key(wp_unslash($_POST['mode'])) : 'search';
+    $include_items = $mode !== 'suggest';
+
+    wp_send_json_success(paint_get_faq_response($keyword, $term_id, -1, $include_items));
+}
+
 // disable gutenberg editor
 add_filter("use_block_editor_for_post_type", "disable_gutenberg_editor");
 function disable_gutenberg_editor(): bool

@@ -3,72 +3,77 @@
  Template Name: FAQs Page
  */
 
+use ExtendSite\Admin\Fields\Pages\Faq\GeneralTab;
+
 get_header();
 
-$opt_limit = paint_get_option('template_faq_opt_limit', 10);
-$opt_order_by = paint_get_option('template_faq_opt_order_by', 'id');
-$opt_order = paint_get_option('template_faq_opt_order', 'ASC');
-$paged = (get_query_var('paged')) ? get_query_var('paged') : 1;
+$faq_header = paint_get_field_tab_data(GeneralTab::class);
+$faq_title = $faq_header['title'] ?? 'FAQs';
+$faq_subtitle = $faq_header['subtitle'] ?? '';
+$faq_terms = get_terms([
+  'taxonomy' => paint_get_faq_taxonomy(),
+  'hide_empty' => true,
+]);
 
-// Query
-$args = array(
-  'post_type' => 'paint_faq',
-  'posts_per_page' => $opt_limit,
-  'orderby' => $opt_order_by,
-  'order' => $opt_order,
-  'paged' => $paged,
-  'ignore_sticky_posts' => 1,
-);
-
-$query = new WP_Query($args);
+$faq_response = paint_get_faq_response();
 ?>
 
-  <div class="site-container faq-warp">
+  <main class="site-container faq-wrap" data-faq-page>
     <div class="container">
-      <div class="top text-center">
-        <h1 class="top__title mb-2">
-          <?php echo get_the_title(); ?>
+      <header class="faq-hero text-center">
+        <h1 class="faq-hero__title">
+          <?php echo esc_html($faq_title); ?>
         </h1>
 
-        <p class="top__heading text">
-          <?php esc_html_e('Câu hỏi phổ biến về BColor', 'paint'); ?>
-        </p>
-      </div>
+        <?php if (!empty($faq_subtitle)) : ?>
+          <p class="faq-hero__desc">
+            <?php echo esc_html($faq_subtitle); ?>
+          </p>
+        <?php endif; ?>
 
-      <?php if ($query->have_posts()) : ?>
-        <div class="accordion accordion-my-theme accordion-faq">
-          <?php
-          $i = 1;
-          while ($query->have_posts()): $query->the_post();
-            ?>
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="post-<?php the_ID(); ?>">
-                <button class="accordion-button<?php echo esc_attr($i !== 1 ? ' collapsed' : ''); ?>"
-                        type="button" data-bs-toggle="collapse"
-                        data-bs-target="#panels-post-<?php the_ID(); ?>" aria-expanded="true"
-                        aria-controls="panels-post-<?php the_ID(); ?>">
-                  <?php the_title(); ?>
-                </button>
-              </h2>
+        <div class="faq-search">
+          <label class="screen-reader-text" for="faq-search-input">
+            <?php esc_html_e('Tìm kiếm câu hỏi', 'paint'); ?>
+          </label>
 
-              <div id="panels-post-<?php the_ID(); ?>"
-                   class="accordion-collapse collapse<?php echo esc_attr($i == 1 ? ' show' : ''); ?>"
-                   aria-labelledby="post-<?php the_ID(); ?>">
-                <div class="accordion-body">
-                  <?php the_content(); ?>
-                </div>
-              </div>
-            </div>
-            <?php $i++; endwhile; ?>
+          <i class="faq-search__icon fa-solid fa-magnifying-glass" aria-hidden="true"></i>
+          <input id="faq-search-input" class="faq-search__input" type="search" placeholder="<?php esc_attr_e('Nhập câu hỏi...', 'paint'); ?>" autocomplete="off" data-faq-search>
+          <div class="faq-search__dropdown" data-faq-suggestions hidden></div>
         </div>
-        <?php
-        paint_paging_nav_query($query);
 
-        wp_reset_postdata();
-      endif;
-      ?>
+        <div class="faq-filters" data-faq-filters>
+          <button class="faq-filter is-active" type="button" data-term-id="0">
+            <span class="faq-filter__label"><?php esc_html_e('Tất cả', 'paint'); ?></span>
+            <span class="faq-filter__count" data-filter-count hidden></span>
+          </button>
+
+          <?php if (!empty($faq_terms) && !is_wp_error($faq_terms)) : ?>
+            <?php foreach ($faq_terms as $term) : ?>
+              <button class="faq-filter" type="button" data-term-id="<?php echo esc_attr($term->term_id); ?>">
+                <span class="faq-filter__label"><?php echo esc_html($term->name); ?></span>
+                <span class="faq-filter__count" data-filter-count hidden></span>
+              </button>
+            <?php endforeach; ?>
+          <?php endif; ?>
+        </div>
+      </header>
+
+      <section class="faq-panel" aria-live="polite" aria-busy="false" data-faq-results>
+        <div class="faq-panel__head">
+          <span data-faq-section-title><?php echo esc_html($faq_response['section_title']); ?></span>
+        </div>
+
+        <div class="faq-loading" data-faq-loading hidden>
+          <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+          <span><?php esc_html_e('Đang tìm kiếm...', 'paint'); ?></span>
+        </div>
+
+        <div class="faq-list" id="faq-list" data-faq-list>
+          <?php echo $faq_response['items_html']; ?>
+        </div>
+      </section>
     </div>
-  </div>
+  </main>
 
 <?php
 get_footer();
