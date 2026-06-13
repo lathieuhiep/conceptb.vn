@@ -34,7 +34,7 @@ if ($id_color_code_cat) :
     <div class="product-color">
         <div class="product-color__notice">
             <p class="mb-0"><?php esc_html_e('Hình ảnh có thể có sự khác nhau do điều kiện ánh sáng tại vị trí chụp.', 'paint'); ?></p>
-            <p><?php esc_html_e('Quý Khách hàng vui lòng liên hệ đội ngũ tư vấn của BColor để biết thêm chi tiết.', 'paint'); ?></p>
+            <p><?php esc_html_e('Quý Khách hàng vui lòng liên hệ đội ngũ tư vấn của ConceptB để biết thêm chi tiết.', 'paint'); ?></p>
         </div>
 
         <?php

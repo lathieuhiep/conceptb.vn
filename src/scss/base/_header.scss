@@ -22,7 +22,7 @@
 
 .site-header {
   --header-box-shadow: 0 .4rem 1.2rem 0 rgba(0, 0, 0, 0.15);
-  --header-bk-color: rgba(255,255,255,.8);
+  --header-bk-color: #fff;
 
   box-shadow: var(--header-box-shadow);
   background-color: var(--header-bk-color);

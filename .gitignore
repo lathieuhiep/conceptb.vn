@@ -19,6 +19,7 @@ package-lock.json
 !src/**
 
 !.gitignore
+!AGENTS.md
 !gulpfile.js
 !package.json
 !README.md

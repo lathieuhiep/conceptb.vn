@@ -76,6 +76,11 @@ function paint_register_front_end(): void
         wp_enqueue_style('template_faq', get_theme_file_uri('/assets/css/templates/template-faq.min.css'), array(), '');
     }
 
+    // get style template About Us
+    if (is_page_template('templates/about-us.php')) {
+        wp_enqueue_style('template_about_us', get_theme_file_uri('/assets/css/templates/template-about-us.min.css'), array(), '');
+    }
+
     // get style archive product
     if (is_tax('paint_product_cat') || is_post_type_archive('paint_product')) {
         wp_enqueue_style('archive-product', get_theme_file_uri('/assets/css/post-type/product/archive.min.css'), array(), '');
@@ -195,6 +200,10 @@ function paint_register_front_end(): void
             'url' => $paint_admin_url_ajax,
             'nonce' => wp_create_nonce('paint_faq_nonce'),
         ));
+    }
+
+    if (is_page_template('templates/about-us.php')) {
+        wp_enqueue_script('template-about-us', get_theme_file_uri('/assets/js/template-about-us.min.js'), array('bootstrap'), '1.0.0', true);
     }
 
     if ( is_singular('paint_product') ) {
