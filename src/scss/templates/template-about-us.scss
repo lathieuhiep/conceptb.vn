@@ -424,6 +424,437 @@
     }
   }
 
+  .about-technology {
+    position: relative;
+    --about-tech-offset: clamp(1.2rem, 7vw, 14.3rem);
+    min-height: 76rem;
+    padding: 6.2rem 0 7.8rem;
+    color: #fff;
+    background:
+      linear-gradient(0deg, rgba(45, 50, 56, 0.86), rgba(45, 50, 56, 0.86)),
+      #2d3238;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    overflow: hidden;
+
+    &__inner {
+      width: 100%;
+      padding-right: 0;
+      padding-left: var(--about-tech-offset);
+    }
+
+    &__title {
+      margin: 0 0 5.6rem;
+      padding-right: var(--about-tech-offset);
+      color: #fff;
+      font-size: 7.55rem;
+      font-weight: 900;
+      line-height: 1.22;
+      text-align: center;
+      text-transform: uppercase;
+      mix-blend-mode: exclusion;
+    }
+
+    &__body {
+      display: grid;
+      grid-template-columns: minmax(32rem, 65rem) minmax(0, 1fr);
+      align-items: end;
+      gap: 6.7rem;
+    }
+
+    &__panel {
+      margin-bottom: 10.4rem;
+      padding: 2.7rem 3.1rem 2.4rem 3.2rem;
+      border: 0.1rem solid rgba(255, 255, 255, 0.56);
+      border-radius: 2.7rem;
+      background-color: rgba(2, 3, 6, 0.22);
+      backdrop-filter: blur(0.685rem);
+    }
+
+    &__panel-title {
+      margin: 0 0 1.9rem;
+      color: #fff;
+      font-size: 3rem;
+      font-weight: 900;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    &__panel-desc {
+      margin: 0;
+      color: #fff;
+      font-size: 2.4rem;
+      font-weight: 400;
+      line-height: 1.2;
+      text-align: justify;
+    }
+
+    &__slider-wrap {
+      min-width: 0;
+    }
+
+    &__slider {
+      margin: -11rem 0 -2.2rem;
+      padding: 11rem 0 2.2rem;
+      overflow: hidden;
+      user-select: none;
+
+      .swiper-wrapper {
+        align-items: center;
+      }
+    }
+
+    &__progress {
+      width: min(100%, 107.4rem);
+      height: 1.3rem;
+      margin-top: 3.6rem;
+      border-radius: 2.3rem;
+      background-color: rgba(255, 255, 255, 0.26);
+      overflow: hidden;
+    }
+
+    &__progress-bar {
+      display: block;
+      width: 0;
+      height: 100%;
+      border-radius: inherit;
+      background-color: rgba(255, 255, 255, 0.57);
+      transition: width .3s ease;
+    }
+  }
+
+  .about-technology-card {
+    position: relative;
+    width: 40.8rem;
+    height: 64.6rem;
+    border-radius: 2rem;
+    filter: drop-shadow(0.6rem 0.9rem 1.5rem rgba(0, 0, 0, 0.25));
+    overflow: hidden;
+    transform: scale(0.9);
+    transform-origin: center center;
+    transition: transform .35s ease, filter .35s ease;
+    user-select: none;
+
+    &.swiper-slide-active {
+      z-index: 2;
+      filter: drop-shadow(0.6rem 0.9rem 1.5rem rgba(0, 0, 0, 0.37));
+      transform: scale(1);
+    }
+
+    &.swiper-slide-next {
+      transform: translateX(1.2rem) scale(0.9);
+    }
+
+    &__image,
+    &__img,
+    &__placeholder {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__image {
+      margin: 0;
+      background-color: #2d3238;
+    }
+
+    &__img {
+      object-fit: cover;
+      pointer-events: none;
+      user-select: none;
+      -webkit-user-drag: none;
+    }
+
+    &__placeholder {
+      background:
+        radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.22), transparent 0.2rem),
+        radial-gradient(circle at 45% 45%, rgba(255, 255, 255, 0.12), transparent 8rem),
+        linear-gradient(135deg, #203944, #14222c 48%, #4f7f77);
+    }
+
+    &__content {
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      min-height: 12.1rem;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      gap: .6rem;
+      padding: 2rem 2.15rem;
+      background-color: rgba(45, 50, 56, 0.45);
+      backdrop-filter: blur(1.125rem);
+    }
+
+    &__label,
+    &__subtitle {
+      color: #fff;
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1.2;
+    }
+
+    &__title {
+      margin: 0;
+      color: #fff;
+      font-size: 2.1rem;
+      font-weight: 900;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    &__subtitle {
+      margin: 0;
+    }
+  }
+
+  .about-principle {
+    padding-top: 6.8rem;
+    padding-bottom: 7.6rem;
+    color: #2d3238;
+
+    &__inner {
+      display: flex;
+      max-width: 95.9rem;
+      flex-direction: column;
+      align-items: center;
+      gap: 5.3rem;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    &__title {
+      margin: 0;
+      color: #2d3238;
+      font-size: 3.6rem;
+      font-weight: 700;
+      line-height: 1.22;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &__desc {
+      max-width: 95.2rem;
+      margin: 0;
+      color: #2d3238;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    &__gallery {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.16rem;
+    }
+
+    &__image {
+      width: 100%;
+      height: 29.8rem;
+      margin: 0;
+      overflow: hidden;
+      background-color: #d9d9d9;
+    }
+
+    &__img,
+    &__placeholder {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__img {
+      object-fit: cover;
+    }
+
+    &__placeholder {
+      background-color: #d9d9d9;
+    }
+  }
+
+  .about-goal {
+    padding-bottom: 8.2rem;
+    color: #2d3238;
+
+    &__inner {
+      display: flex;
+      max-width: 95.4rem;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4.7rem;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    &__content {
+      display: flex;
+      width: 100%;
+      flex-direction: column;
+      align-items: center;
+      gap: 4.2rem;
+      text-align: center;
+    }
+
+    &__title {
+      margin: 0;
+      color: #2d3238;
+      font-size: 3.6rem;
+      font-weight: 900;
+      line-height: 1.22;
+    }
+
+    &__lead {
+      max-width: 93.8rem;
+      margin: 0;
+      color: #2d3238;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    &__desc {
+      margin: 0;
+      color: #2d3238;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    &__cards {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2.64rem;
+    }
+  }
+
+  .about-goal-card {
+    display: flex;
+    min-height: 25.79rem;
+    flex-direction: column;
+    align-items: center;
+    padding: 2.65rem 2.7rem 3.4rem;
+    border: 0.08rem solid #f3f3f3;
+    border-radius: 1.56rem;
+    color: #2d3238;
+    box-shadow: 0 0.31rem 0.47rem 0.08rem rgba(0, 0, 0, 0.2);
+    text-align: center;
+
+    &__title {
+      margin: 0;
+      color: #2d3238;
+      font-size: 1.71rem;
+      font-weight: 700;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+
+    &__line {
+      display: block;
+      width: 16.36rem;
+      height: 0.23rem;
+      margin-top: 0.46rem;
+      background-color: #2d3238;
+    }
+
+    &__label {
+      margin: 1rem 0 0;
+      color: #2d3238;
+      font-family: $font-primary;
+      font-size: 1.85rem;
+      font-weight: 400;
+      line-height: 1.33;
+    }
+
+    &__value {
+      display: block;
+      margin-top: 2.2rem;
+      color: #2d3238;
+      font-size: 4.27rem;
+      font-weight: 900;
+      line-height: 1.3;
+      text-transform: uppercase;
+    }
+
+    &__desc {
+      margin: 1.1rem 0 0;
+      color: #2d3238;
+      font-size: 1.09rem;
+      font-weight: 400;
+      line-height: 1.3;
+      text-align: center;
+    }
+  }
+
+  .about-certification {
+    padding-bottom: 8.6rem;
+    color: #2d3238;
+
+    &__inner {
+      display: flex;
+      max-width: 95.4rem;
+      flex-direction: column;
+      align-items: center;
+      gap: 4.1rem;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    &__title {
+      margin: 0;
+      color: #2d3238;
+      font-size: 3.6rem;
+      font-weight: 700;
+      line-height: 1.22;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &__gallery {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+      gap: 2.2rem;
+    }
+
+    &__image {
+      width: 100%;
+      aspect-ratio: 172.94 / 259.02;
+      margin: 0;
+      overflow: hidden;
+      background-color: #d9d9d9;
+    }
+
+    &__link {
+      display: block;
+      width: 100%;
+      height: 100%;
+      cursor: zoom-in;
+    }
+
+    &__img,
+    &__placeholder {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__img {
+      object-fit: cover;
+    }
+
+    &__placeholder {
+      background-color: #d9d9d9;
+    }
+  }
+
   @media (max-width: 1199px) {
     .about-hero {
       height: 52rem;
@@ -449,6 +880,49 @@
     .about-service-item {
       grid-template-columns: 30rem minmax(0, 1fr);
       gap: 4.8rem;
+    }
+
+    .about-technology {
+      min-height: 0;
+
+      &__title {
+        font-size: 5.95rem;
+      }
+
+      &__body {
+        grid-template-columns: minmax(28rem, 42rem) minmax(0, 1fr);
+        gap: 3.6rem;
+      }
+
+      &__panel {
+        margin-bottom: 8rem;
+      }
+
+      &__panel-desc {
+        font-size: 1.9rem;
+      }
+    }
+
+    .about-principle {
+      &__inner {
+        max-width: 100%;
+      }
+    }
+
+    .about-goal {
+      &__inner {
+        max-width: 100%;
+      }
+
+      &__cards {
+        gap: 1.6rem;
+      }
+    }
+
+    .about-certification {
+      &__inner {
+        max-width: 100%;
+      }
     }
   }
 
@@ -587,6 +1061,119 @@
         line-height: 1.45;
       }
     }
+
+    .about-technology {
+      padding-top: 5.2rem;
+      padding-bottom: 6rem;
+      --about-tech-offset: 1.2rem;
+
+      &__title {
+        margin-bottom: 4rem;
+        padding-right: var(--about-tech-offset);
+        font-size: 4.25rem;
+      }
+
+      &__body {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+      }
+
+      &__panel {
+        order: 2;
+        margin-bottom: 0;
+      }
+
+      &__slider-wrap {
+        order: 1;
+      }
+    }
+
+    .about-principle {
+      padding-top: 5.6rem;
+      padding-bottom: 6rem;
+
+      &__inner {
+        gap: 3.2rem;
+      }
+
+      &__title {
+        font-size: 3rem;
+      }
+
+      &__gallery {
+        gap: 1.2rem;
+      }
+
+      &__image {
+        height: 22rem;
+      }
+    }
+
+    .about-goal {
+      padding-bottom: 6.4rem;
+
+      &__inner {
+        gap: 3.6rem;
+      }
+
+      &__content {
+        gap: 2.8rem;
+      }
+
+      &__title {
+        font-size: 3rem;
+      }
+
+      &__lead {
+        font-size: 1.7rem;
+      }
+
+      &__cards {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 1.2rem;
+      }
+    }
+
+    .about-goal-card {
+      min-height: 22rem;
+      padding: 2.2rem 1.6rem 2.6rem;
+
+      &__title {
+        font-size: 1.4rem;
+      }
+
+      &__line {
+        width: 12rem;
+      }
+
+      &__label {
+        font-size: 1.5rem;
+      }
+
+      &__value {
+        font-size: 3rem;
+      }
+
+      &__desc {
+        font-size: 1rem;
+      }
+    }
+
+    .about-certification {
+      padding-bottom: 6.4rem;
+
+      &__inner {
+        gap: 3.2rem;
+      }
+
+      &__title {
+        font-size: 3rem;
+      }
+
+      &__gallery {
+        gap: 1.4rem;
+      }
+    }
   }
 
   @media (max-width: 567px) {
@@ -704,6 +1291,162 @@
 
       &__desc {
         text-align: left;
+      }
+    }
+
+    .about-technology {
+      padding-top: 4.2rem;
+      padding-bottom: 5.2rem;
+
+      &__title {
+        margin-bottom: 3rem;
+        font-size: 3.23rem;
+      }
+
+      &__panel {
+        padding: 2.2rem 2rem;
+        border-radius: 1.8rem;
+      }
+
+      &__panel-title {
+        margin-bottom: 1.4rem;
+        font-size: 2.2rem;
+      }
+
+      &__panel-desc {
+        font-size: 1.45rem;
+        line-height: 1.45;
+        text-align: left;
+      }
+
+      &__progress {
+        height: .8rem;
+        margin-top: 2.2rem;
+      }
+    }
+
+    .about-technology-card {
+      width: min(30rem, 78vw);
+      height: min(47.5rem, 123.5vw);
+      transform: none;
+
+      &__content {
+        min-height: 11.2rem;
+        padding: 2rem;
+      }
+
+      &.swiper-slide-active {
+        width: min(30rem, 78vw);
+        height: min(47.5rem, 123.5vw);
+        transform: none;
+
+        .about-technology-card__content {
+          min-height: 11.2rem;
+          padding: 2rem;
+        }
+
+        .about-technology-card__label,
+        .about-technology-card__subtitle {
+          font-size: 1.2rem;
+        }
+
+        .about-technology-card__title {
+          font-size: 1.87rem;
+        }
+      }
+
+      &.swiper-slide-next {
+        transform: none;
+      }
+
+      &__label,
+      &__subtitle {
+        font-size: 1.2rem;
+      }
+
+      &__title {
+        font-size: 1.87rem;
+      }
+    }
+
+    .about-principle {
+      padding-top: 4.8rem;
+      padding-bottom: 5.2rem;
+
+      &__inner {
+        gap: 2.6rem;
+      }
+
+      &__title {
+        font-size: 2.6rem;
+      }
+
+      &__desc {
+        font-size: 1.45rem;
+        text-align: left;
+      }
+
+      &__gallery {
+        grid-template-columns: 1fr;
+      }
+
+      &__image {
+        height: auto;
+        aspect-ratio: 311.95 / 298;
+      }
+    }
+
+    .about-goal {
+      padding-bottom: 5.2rem;
+
+      &__content {
+        gap: 2.4rem;
+      }
+
+      &__title {
+        font-size: 2.6rem;
+      }
+
+      &__lead {
+        font-size: 1.55rem;
+        text-align: left;
+      }
+
+      &__desc {
+        font-size: 1.45rem;
+        text-align: left;
+      }
+
+      &__cards {
+        grid-template-columns: 1fr;
+        gap: 1.6rem;
+      }
+    }
+
+    .about-goal-card {
+      min-height: 0;
+      padding: 2.4rem 2rem 2.8rem;
+
+      &__line {
+        max-width: 16.36rem;
+        width: 62%;
+      }
+    }
+
+    .about-certification {
+      padding-bottom: 5.2rem;
+
+      &__inner {
+        gap: 2.6rem;
+      }
+
+      &__title {
+        font-size: 2.6rem;
+      }
+
+      &__gallery {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1.2rem;
       }
     }
   }
