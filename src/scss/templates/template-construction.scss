@@ -1,0 +1,631 @@
+@import "../variables-site/variables";
+
+.page-template-construction {
+  .construction-page {
+    background-color: #fff;
+  }
+
+  .construction-container {
+    max-width: 98.4rem;
+    margin-right: auto;
+    margin-left: auto;
+    padding-right: 1.2rem;
+    padding-left: 1.2rem;
+  }
+
+  .construction-hero {
+    position: relative;
+    width: 100%;
+    height: 65.7rem;
+    overflow: hidden;
+
+    &::before,
+    &::after {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      z-index: 1;
+      width: 28%;
+      pointer-events: none;
+      content: "";
+    }
+
+    &::before {
+      left: 0;
+      background: linear-gradient(90deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0));
+    }
+
+    &::after {
+      right: 0;
+      background: linear-gradient(270deg, rgba(255, 255, 255, 0.92), rgba(255, 255, 255, 0));
+    }
+
+    &__image,
+    &__placeholder {
+      display: block;
+      width: 100%;
+      height: 100%;
+    }
+
+    &__image {
+      object-fit: cover;
+      object-position: center;
+    }
+
+    &__placeholder {
+      background:
+        linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px),
+        #303030;
+      background-size: 12rem 12rem;
+    }
+  }
+
+  .construction-process {
+    padding-top: 5rem;
+    padding-bottom: 5.8rem;
+
+    &__title {
+      margin: 0 0 3.6rem;
+      color: #2d3238;
+      font-size: 3.6rem;
+      font-weight: 700;
+      line-height: 1.22;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &__video {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      aspect-ratio: 960 / 539.31;
+      overflow: hidden;
+      background-color: #2d3238;
+    }
+
+    &__video::before {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      background-color: rgba(0, 0, 0, 0.31);
+      pointer-events: none;
+      content: "";
+    }
+
+    &__image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &__play {
+      position: absolute;
+      z-index: 2;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 10.4rem;
+      height: 10.4rem;
+      border-radius: 50%;
+      color: #fff;
+      background-color: rgba(255, 255, 255, 0.86);
+      font-size: 4.5rem;
+    }
+
+    &__play i {
+      margin-left: 0.8rem;
+    }
+  }
+
+  .construction-recommendation {
+    padding-top: 3.4rem;
+    padding-bottom: 8.5rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    background-repeat: no-repeat;
+    background-position: center top;
+    background-size: cover;
+
+    &__content {
+      margin-right: auto;
+      margin-left: auto;
+      color: #2d3238;
+    }
+
+    &__content--process {
+      max-width: 75.2rem;
+    }
+
+    &__content--table {
+      max-width: 95.5rem;
+      margin-top: 5.2rem;
+    }
+
+    &__content > *:last-child {
+      margin-bottom: 0;
+    }
+
+    &__content img {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin-right: auto;
+      margin-left: auto;
+    }
+
+    &__content h2,
+    &__content h3 {
+      margin: 5.2rem 0 3.1rem;
+      color: #2d3238;
+      font-size: 3.6rem;
+      font-weight: 700;
+      line-height: 1.22;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &__content p {
+      margin-bottom: 1.1rem;
+      font-size: 1.93rem;
+      font-style: italic;
+      line-height: 1.19;
+    }
+
+    &__action {
+      display: flex;
+      justify-content: center;
+      margin-top: 5rem;
+    }
+
+    &__button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 29.7rem;
+      min-height: 5.8rem;
+      padding: 0.6rem 4.6rem;
+      border: 0.14rem solid #2d3238;
+      border-radius: 1.15rem;
+      color: #fff;
+      background-color: #2d3238;
+      font-size: 2.02rem;
+      font-weight: 500;
+      line-height: 1.14;
+      text-align: center;
+    }
+
+    &__button:hover {
+      color: #2d3238;
+      background-color: transparent;
+    }
+  }
+
+  .construction-why-choose {
+    padding-top: 7.5rem;
+    padding-bottom: 8rem;
+
+    &__title {
+      margin: 0 0 4rem;
+      color: #2d3238;
+      font-size: 3.6rem;
+      font-weight: 700;
+      line-height: 1.22;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &__features {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    &__group-title {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 39rem;
+      min-height: 4.8rem;
+      margin: 0;
+      padding: 1.2rem 2rem;
+      border-radius: 0.8rem;
+      color: #fff;
+      background-color: #2d3238;
+      font-size: 2rem;
+      font-weight: 700;
+      line-height: 1.2;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &__feature-list {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 1.16rem;
+    }
+
+    &__commitment-list {
+      display: grid;
+      width: 100%;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 4rem;
+      margin-top: 4rem;
+    }
+  }
+
+  .construction-feature-card {
+    overflow: hidden;
+    border-radius: 0.925rem;
+    background-color: #f2f2f2;
+
+    &__image {
+      width: 100%;
+      aspect-ratio: 231.07 / 175.97;
+      margin: 0;
+      overflow: hidden;
+      background-color: #d9d9d9;
+    }
+
+    &__img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &__body {
+      min-height: 11.8rem;
+      padding: 1.16rem 1.735rem;
+      color: #2d3238;
+    }
+
+    &__title {
+      margin: 0 0 0.8rem;
+      color: #2d3238;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.5;
+      text-align: justify;
+      text-transform: uppercase;
+    }
+
+    &__desc {
+      color: #2d3238;
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1.5;
+      text-align: justify;
+    }
+
+    &__desc p {
+      margin-bottom: 0;
+    }
+  }
+
+  .construction-commitment-card {
+    display: flex;
+    min-height: 44.8rem;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    padding: 2rem;
+    border: 0.1rem solid #f2f2f2;
+    border-radius: 1.2rem;
+    background-color: #fff;
+    box-shadow: 0.4rem 0.4rem 1rem rgba(0, 0, 0, 0.15);
+
+    &__title {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 100%;
+      min-height: 4.3rem;
+      margin: 0;
+      padding: 1.2rem 1.4rem;
+      border-radius: 0.8rem;
+      color: #fff;
+      background-color: #2d3238;
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1.19;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &__image {
+      width: 100%;
+      aspect-ratio: 253 / 175.97;
+      margin: 0;
+      overflow: hidden;
+      background-color: #d9d9d9;
+    }
+
+    &__img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    &__desc {
+      color: #2d3238;
+      font-size: 1.6rem;
+      font-weight: 400;
+      line-height: 1.19;
+      text-align: center;
+    }
+
+    &__desc p {
+      margin-bottom: 0;
+    }
+  }
+
+  .construction-workflow-gallery {
+    padding-top: 1rem;
+    padding-bottom: 8rem;
+
+    &__title {
+      margin: 0 0 4.3rem;
+      color: #2d3238;
+      font-size: 3.6rem;
+      font-weight: 700;
+      line-height: 1.22;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    &__grid {
+      display: grid;
+      grid-template-columns: 44.3rem repeat(2, minmax(0, 1fr));
+      grid-auto-rows: 21.786rem;
+      gap: 0.734rem 1.9rem;
+      align-items: stretch;
+    }
+
+    &__item {
+      margin: 0;
+      overflow: hidden;
+      background-color: #d9d9d9;
+      filter: drop-shadow(0 0.291rem 1.093rem rgba(0, 0, 0, 0.25));
+    }
+
+    &__item--large {
+      grid-row: span 2;
+      filter: none;
+    }
+
+    &__image {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+}
+
+@media (max-width: 1199px) {
+  .page-template-construction {
+    .construction-hero {
+      height: 52rem;
+    }
+  }
+}
+
+@media (max-width: 991px) {
+  .page-template-construction {
+    .construction-hero {
+      height: auto;
+
+      &__image {
+        height: auto;
+        object-fit: initial;
+      }
+
+      &__placeholder {
+        height: 34rem;
+      }
+
+      &::before,
+      &::after {
+        width: 18%;
+      }
+    }
+
+    .construction-process {
+      padding-top: 6rem;
+      padding-bottom: 5.6rem;
+
+      &__title {
+        margin-bottom: 3rem;
+        font-size: 3rem;
+      }
+
+      &__play {
+        width: 8rem;
+        height: 8rem;
+        font-size: 3.5rem;
+      }
+    }
+
+    .construction-recommendation {
+      padding-top: 3rem;
+      padding-bottom: 6rem;
+
+      &__content p {
+        font-size: 1.6rem;
+        line-height: 1.4;
+      }
+
+      &__content h2,
+      &__content h3 {
+        margin-bottom: 2.8rem;
+        font-size: 3rem;
+      }
+
+      &__button {
+        min-width: 24rem;
+        min-height: 5.2rem;
+        padding-right: 3.2rem;
+        padding-left: 3.2rem;
+        font-size: 1.7rem;
+      }
+    }
+
+    .construction-why-choose {
+      padding-top: 6rem;
+      padding-bottom: 6rem;
+
+      &__title {
+        font-size: 3rem;
+      }
+
+      &__feature-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      &__commitment-list {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 2.4rem;
+      }
+    }
+
+    .construction-commitment-card {
+      min-height: 0;
+    }
+
+    .construction-workflow-gallery {
+      padding-bottom: 6rem;
+
+      &__title {
+        margin-bottom: 3.4rem;
+        font-size: 3rem;
+      }
+
+      &__grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        grid-auto-rows: auto;
+        gap: 1.2rem;
+      }
+
+      &__item {
+        aspect-ratio: 246.27 / 217.86;
+      }
+
+      &__item--large {
+        grid-column: 1 / -1;
+        grid-row: auto;
+        aspect-ratio: 443 / 443;
+      }
+    }
+  }
+}
+
+@media (max-width: 567px) {
+  .page-template-construction {
+    .construction-process {
+      padding-top: 4.8rem;
+      padding-bottom: 4.8rem;
+
+      &__title {
+        margin-bottom: 2.4rem;
+        font-size: 2.6rem;
+      }
+
+      &__play {
+        width: 6.4rem;
+        height: 6.4rem;
+        font-size: 2.8rem;
+      }
+    }
+
+    .construction-recommendation {
+      padding-top: 2.8rem;
+      padding-bottom: 4.8rem;
+
+      &__content p {
+        font-size: 1.35rem;
+        line-height: 1.45;
+      }
+
+      &__content h2,
+      &__content h3 {
+        margin-bottom: 2.4rem;
+        font-size: 2.6rem;
+      }
+
+      &__action {
+        margin-top: 2.4rem;
+      }
+
+      &__button {
+        width: 100%;
+        min-width: 0;
+        font-size: 1.55rem;
+      }
+    }
+
+    .construction-why-choose {
+      padding-top: 4.8rem;
+      padding-bottom: 4.8rem;
+
+      &__title {
+        margin-bottom: 3rem;
+        font-size: 2.6rem;
+      }
+
+      &__group-title {
+        width: 100%;
+        min-width: 0;
+        font-size: 1.6rem;
+      }
+
+      &__feature-list,
+      &__commitment-list {
+        grid-template-columns: 1fr;
+      }
+
+      &__commitment-list {
+        margin-top: 3rem;
+      }
+    }
+
+    .construction-feature-card {
+      &__body {
+        min-height: 0;
+      }
+    }
+
+    .construction-commitment-card {
+      padding: 2.4rem 2rem;
+
+      &__desc {
+        font-size: 1.45rem;
+        line-height: 1.35;
+      }
+    }
+
+    .construction-workflow-gallery {
+      padding-top: 0;
+      padding-bottom: 4.8rem;
+
+      &__title {
+        margin-bottom: 2.8rem;
+        font-size: 2.6rem;
+      }
+
+      &__grid {
+        grid-template-columns: 1fr;
+      }
+
+      &__item,
+      &__item--large {
+        aspect-ratio: 443 / 443;
+      }
+    }
+  }
+}

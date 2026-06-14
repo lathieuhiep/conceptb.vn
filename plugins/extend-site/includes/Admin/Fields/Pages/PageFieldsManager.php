@@ -28,6 +28,7 @@ class PageFieldsManager {
         HomeFields::register();
         FaqFields::register();
         AboutFields::register();
+        ConstructionFields::register();
         // ContactFields::register();
         // LandingFields::register();
     }

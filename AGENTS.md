@@ -144,6 +144,7 @@ npx gulp watchRun
 ## Cach Lam Viec Mac Dinh
 
 - Truoc khi sua, doc file lien quan de nam style code hien co.
+- Khi can tim file hoac tim text trong repo, mac dinh dung `rg`/`rg --files`; chi dung `Get-ChildItem -Recurse`/`Select-String` khi `rg` khong dap ung duoc nhu cau cu the.
 - Giu style code, naming, indentation, va cach to chuc hien tai.
 - Neu thay code cu trong theme va code moi trong plugin cung xu ly mot mien logic, uu tien hoi hoac giai thich ngan vi sao chon noi sua.
 - Sau khi sua asset, khong tu chay build neu user khong yeu cau; user dang tu chay watch bang gulp.
@@ -152,7 +153,7 @@ npx gulp watchRun
 ## Tranh Tac Vu Keo Dai Hoac Treo
 
 - Luon gioi han pham vi doc/tim kiem vao khu vuc lien quan, uu tien `wp-content/src`, `wp-content/themes/paint`, va `wp-content/plugins/extend-site`.
-- Khi tim file/text, uu tien `rg`/`rg --files` va loai tru cac thu muc nang neu khong can: `wp-content/node_modules`, `wp-content/uploads`, `vendor`, `.git`, file build/minified.
+- Khi tim file/text bang `rg`, loai tru cac thu muc nang neu khong can: `wp-content/node_modules`, `wp-content/uploads`, `vendor`, `.git`, file build/minified.
 - Khong chay lenh watch/dev server/build dai han neu user khong yeu cau ro.
 - Moi lenh shell nen co timeout hop ly; neu lenh co nguy co chay lau, dat timeout ngan truoc roi tang dan khi can.
 - Neu mot lenh/test/build qua 30 giay ma chua co ket qua ro, cap nhat trang thai ngan cho user va neu can thi dung lai de doi huong.

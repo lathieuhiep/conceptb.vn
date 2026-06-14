@@ -89,6 +89,12 @@ function paint_register_front_end(): void
         wp_enqueue_style('template_about_us', get_theme_file_uri('/assets/css/templates/template-about-us.min.css'), array(), '');
     }
 
+    // get style template Construction
+    if (is_page_template('templates/construction.php')) {
+        wp_enqueue_style('lity', get_theme_file_uri('/assets/libs/lity/lity.min.css'), array(), '');
+        wp_enqueue_style('template_construction', get_theme_file_uri('/assets/css/templates/template-construction.min.css'), array(), '');
+    }
+
     // get style archive product
     if (is_tax('paint_product_cat') || is_post_type_archive('paint_product')) {
         wp_enqueue_style('archive-product', get_theme_file_uri('/assets/css/post-type/product/archive.min.css'), array(), '');
@@ -187,7 +193,7 @@ function paint_register_front_end(): void
     }
 
     // get lib lity
-    if (is_singular('paint_discover')) {
+    if (is_singular('paint_discover') || is_page_template('templates/construction.php')) {
         wp_enqueue_script('lity', get_theme_file_uri('/assets/libs/lity/lity.min.js'), array('jquery'), '', true);
     }
 
