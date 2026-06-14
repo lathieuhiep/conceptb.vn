@@ -1,19 +1,22 @@
 <?php
-$opt_certification = paint_get_option('template_introduce_opt_certification');
-$opt_image_size = paint_get_option('template_introduce_opt_image_size');
-$opt_image_position = paint_get_option('template_introduce_opt_image_size_position');
 
-if ($opt_certification) :
-  $gallery_ids = explode(',', $opt_certification);
-  ?>
+use ExtendSite\Admin\Fields\Pages\About\CertificationTab;
 
-  <div class="element-about-gallery">
+$data = class_exists(CertificationTab::class)
+    ? paint_get_field_tab_data(CertificationTab::class)
+    : [];
+
+$gallery_ids = array_filter(array_map('intval', (array)($data['images'] ?? [])));
+
+if (empty($gallery_ids)) {
+    return;
+}
+?>
+
+<div class="element-about-gallery">
     <?php foreach ($gallery_ids as $item) : ?>
-      <div class="item <?php echo esc_attr($opt_image_position); ?>">
-        <?php echo wp_get_attachment_image($item, $opt_image_size); ?>
-      </div>
+        <div class="item">
+            <?php echo wp_get_attachment_image($item, 'medium_large'); ?>
+        </div>
     <?php endforeach; ?>
-  </div>
-
-<?php
-endif;
+</div>

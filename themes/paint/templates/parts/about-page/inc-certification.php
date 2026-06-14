@@ -4,12 +4,7 @@ use ExtendSite\Admin\Fields\Pages\About\CertificationTab;
 
 $data = paint_get_field_tab_data(CertificationTab::class);
 $title = $data['title'] ?? '';
-$images = $data['images'] ?? [];
-$legacy_image_id = (int)($data['image'] ?? 0);
-
-if (empty($images) && !empty($legacy_image_id)) {
-    $images = [$legacy_image_id];
-}
+$images = array_filter(array_map('intval', (array)($data['images'] ?? [])));
 
 if ($title === '' && empty($images)) {
     return;

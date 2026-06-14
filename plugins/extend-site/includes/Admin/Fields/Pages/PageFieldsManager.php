@@ -1,6 +1,8 @@
 <?php
 namespace ExtendSite\Admin\Fields\Pages;
 
+use ExtendSite\Admin\Fields\Pages\About\CertificationTab;
+
 defined('ABSPATH') || exit;
 
 /**
@@ -14,6 +16,7 @@ class PageFieldsManager {
     public static function boot(): void
     {
         add_action('carbon_fields_register_fields', [self::class, 'register']);
+        CertificationTab::boot_admin_cleanup();
     }
 
     /**
