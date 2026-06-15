@@ -2,9 +2,11 @@
 namespace ExtendSite\Admin\Fields\Pages;
 
 use Carbon_Fields\Container;
+use ExtendSite\Admin\Fields\Pages\Construction\ContactTab;
 use ExtendSite\Admin\Fields\Pages\Construction\HeroTab;
 use ExtendSite\Admin\Fields\Pages\Construction\ProcessTab;
 use ExtendSite\Admin\Fields\Pages\Construction\RecommendationTab;
+use ExtendSite\Admin\Fields\Pages\Construction\ToolsTab;
 use ExtendSite\Admin\Fields\Pages\Construction\WorkflowGalleryTab;
 use ExtendSite\Admin\Fields\Pages\Construction\WhyChooseTab;
 
@@ -32,6 +34,12 @@ class ConstructionFields
             )->add_tab(
                 esc_html__('Quy trình làm việc', 'extend-site'),
                 WorkflowGalleryTab::fields()
+            )->add_tab(
+                esc_html__('Dụng cụ thi công', 'extend-site'),
+                ToolsTab::fields()
+            )->add_tab(
+                esc_html__('Liên hệ tư vấn', 'extend-site'),
+                ContactTab::fields()
             );
     }
 }

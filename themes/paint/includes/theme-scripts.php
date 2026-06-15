@@ -91,6 +91,13 @@ function paint_register_front_end(): void
 
     // get style template Construction
     if (is_page_template('templates/construction.php')) {
+        wp_enqueue_style(
+            'swiper',
+            'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css',
+            array(),
+            '11'
+        );
+
         wp_enqueue_style('lity', get_theme_file_uri('/assets/libs/lity/lity.min.css'), array(), '');
         wp_enqueue_style('template_construction', get_theme_file_uri('/assets/css/templates/template-construction.min.css'), array(), '');
     }
@@ -195,6 +202,21 @@ function paint_register_front_end(): void
     // get lib lity
     if (is_singular('paint_discover') || is_page_template('templates/construction.php')) {
         wp_enqueue_script('lity', get_theme_file_uri('/assets/libs/lity/lity.min.js'), array('jquery'), '', true);
+    }
+
+    if (is_page_template('templates/construction.php')) {
+        wp_enqueue_script(
+            'swiper',
+            'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js',
+            array(),
+            '11',
+            true
+        );
+
+        wp_add_inline_script(
+            'swiper',
+            "document.addEventListener('DOMContentLoaded',function(){if(typeof window.Swiper!=='function'){return;}document.querySelectorAll('[data-construction-tools-slider]').forEach(function(slider){var swiperEl=slider.querySelector('[data-construction-tools-swiper]');if(!swiperEl||swiperEl.classList.contains('swiper-initialized')){return;}var desktopSlides=parseInt(slider.getAttribute('data-slides-per-view')||'1',10);var slideCount=swiperEl.querySelectorAll('.swiper-slide').length;var options={slidesPerView:1,spaceBetween:0,loop:slideCount>desktopSlides,speed:500,autoHeight:true,watchOverflow:true,navigation:{prevEl:slider.querySelector('.construction-tools__nav--prev'),nextEl:slider.querySelector('.construction-tools__nav--next')}};if(desktopSlides>1){options.spaceBetween=12;options.autoHeight=false;options.breakpoints={568:{slidesPerView:2,spaceBetween:12},992:{slidesPerView:desktopSlides,spaceBetween:12}};}new window.Swiper(swiperEl,options);});});"
+        );
     }
 
     if (is_singular() && comments_open() && get_option('thread_comments')) {

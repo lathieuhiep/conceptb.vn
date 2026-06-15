@@ -1,0 +1,256 @@
+.element-contact {
+  @media (min-width: 1200px) {
+    margin-bottom: 8.4rem;
+  }
+
+  @media (max-width: 1199px) {
+    margin-bottom: 8rem;
+  }
+
+  &__form {
+    width: 100%;
+    margin: 0 auto;
+    border: 1px solid #E9ECEE;
+    border-radius: 2.4rem;
+
+    @media (min-width: 1200px) {
+      padding: 3.85rem 4.2rem;
+      max-width: 86rem;
+    }
+
+    @media (max-width: 1199px) {
+      padding: 2rem;
+    }
+
+    @media (min-width: 992px) and (max-width: 1199px) {
+      max-width: 95%;
+    }
+
+    .wpcf7-form {
+      .title-label {
+        margin-bottom: 2.4rem;
+        color: #2C2C2C;
+        font-size: 2rem;
+        font-weight: 700;
+        line-height: 1.2;
+      }
+
+      .required {
+        color: $color-required;
+      }
+
+      .label {
+        margin-bottom: 1.2rem;
+        color: #23282B;
+        font-size: 1.7rem;
+        line-height: 1.25;
+      }
+
+      input:not(.wpcf7-submit),
+      textarea {
+        &.wpcf7-form-control {
+          min-height: 5.5rem;
+          padding: 1.2rem;
+          border: 1px solid #E9ECEE;
+          border-radius: 1rem;
+          background: #F5F6F8;
+        }
+      }
+
+      textarea {
+        &.wpcf7-textarea {
+          height: 9rem;
+        }
+      }
+
+      .wpcf7-form-control-wrap {
+        margin: 0;
+
+        .wpcf7-not-valid-tip {
+          margin-top: 1.2rem;
+        }
+      }
+
+      .group-box {
+        ~ .group-box {
+          margin-top: 3.7rem;
+        }
+
+        .grid-field__item {
+          + .grid-field__item {
+            margin-top: 2.4rem;
+          }
+        }
+      }
+
+      .grid-warp {
+        display: grid;
+
+        @media (min-width: 1200px) {
+          gap: 2.4rem 4.8rem;
+        }
+
+        @media (max-width: 1199px) {
+          gap: 2.4rem 4rem;
+        }
+
+        @media (min-width: 992px) {
+          grid-template-columns: minmax(0, 43.4rem) minmax(22rem, 1fr);
+        }
+
+        @media (min-width: 768px) and (max-width: 991px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+      }
+
+      .wpcf7-checkbox {
+        .wpcf7-list-item {
+          margin: 0;
+        }
+
+        label {
+          position: relative;
+          display: block;
+          min-width: 0;
+          margin: 0;
+          line-height: 20px;
+        }
+
+        input[type="checkbox"] {
+          position: absolute;
+          opacity: 0;
+
+          &:checked {
+            + .wpcf7-list-item-label {
+              &::after {
+                opacity: 1;
+                visibility: visible;
+              }
+            }
+          }
+        }
+
+        .wpcf7-list-item-label {
+          position: relative;
+          display: grid;
+          grid-template-columns: 2rem minmax(0, 1fr);
+          gap: 1.2rem;
+          align-items: start;
+          min-width: 0;
+          color: #070707;
+          font-size: 1.7rem;
+          font-weight: 400;
+
+          &::before {
+            display: block;
+            width: 2rem;
+            min-width: 2rem;
+            height: 2rem;
+            border: 1px solid #999;
+            border-radius: 5px;
+            content: "";
+          }
+
+          &::after {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2rem;
+            height: 2rem;
+            color: #2c2c2c;
+            font-family: $font-awesome;
+            font-size: 14px;
+            font-weight: 900;
+            line-height: 2rem;
+            text-align: center;
+            opacity: 0;
+            visibility: hidden;
+            content: "\f00c";
+          }
+        }
+      }
+
+      .grid-check-box {
+        .wpcf7-checkbox {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 2.4rem;
+
+          @media (max-width: 991px) {
+            flex-direction: column;
+          }
+        }
+      }
+
+      .list-box {
+        .wpcf7-checkbox {
+          display: flex;
+          flex-direction: column;
+          gap: 2.4rem;
+        }
+      }
+
+      .action-box {
+        position: relative;
+        display: flex;
+        gap: 1.2rem;
+        width: 100%;
+        max-width: 43.4rem;
+        margin-top: 2.4rem;
+
+        &__btn {
+          flex: 1 0 auto;
+          max-width: 100%;
+        }
+
+        p {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          min-height: 5rem;
+          padding: 1rem;
+          gap: 1.2rem;
+          border-radius: 1rem;
+          color: #fff;
+          background-color: #23282B;
+          cursor: pointer;
+          font-size: 1.7rem;
+          font-weight: 500;
+          line-height: 1.1;
+          @include transition();
+
+          &:hover {
+            color: $color-black;
+            background-color: #faca26;
+          }
+        }
+
+        .wpcf7-submit {
+          padding: 0;
+          color: currentColor;
+          background: transparent;
+          font-weight: inherit;
+        }
+
+        .chat-link {
+          display: flex;
+          flex: 1;
+          align-items: center;
+          justify-content: center;
+          gap: 1.2rem;
+          color: currentColor;
+          @include transition(none);
+        }
+
+        .wpcf7-spinner {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          margin: 0;
+          transform: translate(-50%, -50%);
+        }
+      }
+    }
+  }
+}
