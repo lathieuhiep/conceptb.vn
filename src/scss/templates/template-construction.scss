@@ -3,7 +3,21 @@
 
 .page-template-construction {
   .construction-page {
+    --construction-anchor-top: 3.2rem;
+    --construction-anchor-left: max(2rem, calc((100vw - 98.4rem) / 2 - 18rem));
+
+    position: relative;
     background-color: #fff;
+  }
+
+  .main-warp:has(> .site-header.menu-position-fixed) .construction-page,
+  .main-warp:has(> .site-header.menu-position-sticky) .construction-page {
+    --construction-anchor-top: 12.4rem;
+  }
+
+  &.admin-bar .main-warp:has(> .site-header.menu-position-fixed) .construction-page,
+  &.admin-bar .main-warp:has(> .site-header.menu-position-sticky) .construction-page {
+    --construction-anchor-top: 15.6rem;
   }
 
   .construction-container {
@@ -12,6 +26,59 @@
     margin-left: auto;
     padding-right: 1.2rem;
     padding-left: 1.2rem;
+  }
+
+  .construction-anchor-nav {
+    position: absolute;
+    top: calc(65.7rem - 6.8rem);
+    left: 50%;
+    z-index: 9;
+    display: flex;
+    width: max-content;
+    max-width: calc(100% - 2.4rem);
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    transform: translateX(-50%);
+    transition: opacity 0.18s ease;
+
+    &.is-stuck {
+      position: fixed;
+      top: var(--construction-anchor-top);
+      left: var(--construction-anchor-left);
+      flex-direction: column;
+      align-items: stretch;
+      transform: translateY(0.4rem);
+    }
+
+    &__link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 3.4rem;
+      padding: 0.8rem 1.8rem;
+      border-radius: 0.4rem;
+      color: #fff;
+      background-color: #2d3238;
+      box-shadow: 0 0.2rem 0.8rem rgba(0, 0, 0, 0.18);
+      font-size: 1.4rem;
+      font-weight: 400;
+      line-height: 1.2;
+      white-space: nowrap;
+    }
+
+    &__link:hover {
+      color: #2d3238;
+      background-color: #fdcd26;
+    }
+  }
+
+  .construction-process,
+  .construction-tools,
+  .construction-workflow-gallery,
+  .construction-contact {
+    scroll-margin-top: 14rem;
   }
 
   .construction-hero {
@@ -611,11 +678,29 @@
     .construction-hero {
       height: 52rem;
     }
+
+    .construction-anchor-nav {
+      top: calc(52rem - 6.8rem);
+    }
   }
 }
 
 @media (max-width: 991px) {
   .page-template-construction {
+    .construction-page {
+      --construction-anchor-top: 0;
+    }
+
+    .main-warp:has(> .site-header.menu-position-fixed) .construction-page,
+    .main-warp:has(> .site-header.menu-position-sticky) .construction-page {
+      --construction-anchor-top: 9.2rem;
+    }
+
+    &.admin-bar .main-warp:has(> .site-header.menu-position-fixed) .construction-page,
+    &.admin-bar .main-warp:has(> .site-header.menu-position-sticky) .construction-page {
+      --construction-anchor-top: 12.4rem;
+    }
+
     .construction-hero {
       height: auto;
 
@@ -632,6 +717,53 @@
       &::after {
         width: 18%;
       }
+    }
+
+    .construction-anchor-nav {
+      position: sticky;
+      top: var(--construction-anchor-top);
+      left: auto;
+      width: 100%;
+      max-width: none;
+      gap: 0.8rem;
+      justify-content: flex-start;
+      margin: 0;
+      padding: 0.8rem 1.2rem;
+      overflow-x: auto;
+      transform: none;
+      background-color: #fff;
+      box-shadow: 0 0.4rem 1.2rem rgba(0, 0, 0, 0.08);
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      &.is-stuck {
+        position: sticky;
+        top: var(--construction-anchor-top);
+        left: auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        margin: 0;
+        transform: none;
+      }
+
+      &__link {
+        flex: 0 0 auto;
+        min-height: 3.8rem;
+        padding-right: 1.4rem;
+        padding-left: 1.4rem;
+        font-size: 1.3rem;
+      }
+    }
+
+    .construction-process,
+    .construction-tools,
+    .construction-workflow-gallery,
+    .construction-contact {
+      scroll-margin-top: 8rem;
     }
 
     .construction-process {
@@ -768,6 +900,7 @@
       }
     }
   }
+
 }
 
 @media (max-width: 567px) {

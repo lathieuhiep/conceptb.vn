@@ -8,7 +8,7 @@ if (empty($data) || (empty($data['heading']) && empty($data['form_id']))) {
 }
 ?>
 
-<div class="element-contact construction-contact">
+<div class="element-contact construction-contact" id="construction-contact">
   <div class="container">
     <?php if (!empty($data['heading'])) : ?>
       <h2 class="element-contact__heading construction-contact__heading text-center">

@@ -12,7 +12,7 @@ if ($title === '' && empty($feature_image) && empty($gallery_images)) {
 }
 ?>
 
-<section class="construction-workflow-gallery">
+<section class="construction-workflow-gallery" id="construction-workflow-gallery">
   <div class="construction-container">
     <?php if ($title !== '') : ?>
       <h2 class="construction-workflow-gallery__title">

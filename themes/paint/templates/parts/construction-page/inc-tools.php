@@ -36,7 +36,7 @@ if (!$recommended_query && !$other_query) {
 }
 ?>
 
-<section class="construction-tools">
+<section class="construction-tools" id="construction-tools">
   <div class="construction-container">
     <?php if ($title !== '') : ?>
       <h2 class="construction-tools__title">

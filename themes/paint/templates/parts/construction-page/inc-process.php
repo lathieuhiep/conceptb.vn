@@ -11,7 +11,7 @@ if (empty($title) && empty($image_id)) {
 }
 ?>
 
-<section class="construction-process">
+<section class="construction-process" id="construction-process">
   <div class="construction-container">
     <?php if (!empty($title)) : ?>
       <h2 class="construction-process__title">
