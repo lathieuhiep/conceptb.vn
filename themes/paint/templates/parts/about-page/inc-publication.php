@@ -102,7 +102,7 @@ if (!empty($background_image)) {
     </div>
 
     <div class="modal fade about-publication-modal" id="about-publication-modal" tabindex="-1" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable">
+        <div class="modal-dialog modal-xl modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
                 <button class="about-publication-modal__close" type="button" data-bs-dismiss="modal" aria-label="<?php esc_attr_e('Đóng', 'paint'); ?>">
                     <i class="fa-solid fa-xmark" aria-hidden="true"></i>

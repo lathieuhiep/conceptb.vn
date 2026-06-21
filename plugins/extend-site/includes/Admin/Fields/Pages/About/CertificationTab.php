@@ -28,19 +28,33 @@ class CertificationTab implements FieldTabIF
                 ->set_default_value('ISO & CHỨNG NHẬN CHẤT LƯỢNG')
                 ->set_width(50),
 
-            Field::make('media_gallery', self::IMAGES, esc_html__('Thư viện ảnh chứng nhận', 'extend-site'))
-                ->set_type( array( 'image' ) )
-                ->set_width(50),
+            Field::make('complex', self::IMAGES, esc_html__('Thư viện ảnh chứng nhận', 'extend-site'))
+                ->set_layout('tabbed-vertical')
+                ->add_fields([
+                    Field::make('image', 'image', esc_html__('Chọn ảnh', 'extend-site'))
+                        ->set_width(50),
+
+                    Field::make('text', 'title', esc_html__('Tiêu đề ảnh', 'extend-site'))
+                        ->set_width(50),
+                ])
+                ->set_header_template('
+                    <% if (title) { %>
+                        <%- title %>
+                    <% } else { %>
+                        ' . esc_html__('Ảnh', 'extend-site') . ' <%- $_index + 1 %>
+                    <% } %>
+                '),
         ];
     }
 
     public static function get_data(int $post_id): array
     {
-        $images = carbon_get_post_meta($post_id, self::IMAGES);
+        $images = self::normalize_gallery(carbon_get_post_meta($post_id, self::IMAGES));
 
         return [
-            'title' => trim((string)carbon_get_post_meta($post_id, self::TITLE)),
-            'images' => self::valid_image_ids($images),
+            'title' => trim((string) carbon_get_post_meta($post_id, self::TITLE)),
+            'images' => $images,
+            'image_ids' => array_column($images, 'image_id'),
         ];
     }
 
@@ -61,10 +75,9 @@ class CertificationTab implements FieldTabIF
         }
 
         $images = carbon_get_post_meta($post_id, self::IMAGES);
-        $clean_images = self::valid_image_ids($images);
-        $current_images = is_array($images) ? array_values(array_map('intval', $images)) : [];
+        $clean_images = self::storage_gallery(self::normalize_gallery($images));
 
-        if ($clean_images !== $current_images) {
+        if (self::needs_gallery_cleanup($images, $clean_images)) {
             carbon_set_post_meta($post_id, self::IMAGES, $clean_images);
         }
     }
@@ -82,14 +95,75 @@ class CertificationTab implements FieldTabIF
         return 0;
     }
 
-    private static function valid_image_ids($images): array
+    private static function normalize_gallery($images): array
     {
         if (!is_array($images)) {
             return [];
         }
 
-        return array_values(array_filter(array_map('intval', $images), static function (int $image_id): bool {
-            return $image_id > 0 && wp_attachment_is_image($image_id);
-        }));
+        $normalized = [];
+
+        foreach ($images as $item) {
+            $image_id = 0;
+            $title = '';
+
+            if (is_numeric($item)) {
+                $image_id = (int) $item;
+                $title = $image_id > 0 ? trim((string) get_the_title($image_id)) : '';
+            } elseif (is_array($item)) {
+                if (!empty($item['image'])) {
+                    $image_id = is_numeric($item['image'])
+                        ? (int) $item['image']
+                        : attachment_url_to_postid((string) $item['image']);
+                }
+
+                if (!$image_id && !empty($item['image_id'])) {
+                    $image_id = (int) $item['image_id'];
+                }
+
+                $title = isset($item['title']) ? trim((string) $item['title']) : '';
+            }
+
+            if ($image_id <= 0 || !wp_attachment_is_image($image_id)) {
+                continue;
+            }
+
+            $normalized[] = [
+                'image' => $image_id,
+                'image_id' => $image_id,
+                'title' => $title,
+            ];
+        }
+
+        return $normalized;
+    }
+
+    private static function storage_gallery(array $images): array
+    {
+        return array_map(static function (array $item): array {
+            return [
+                'image' => (int) $item['image_id'],
+                'title' => (string) $item['title'],
+            ];
+        }, $images);
+    }
+
+    private static function needs_gallery_cleanup($images, array $clean_images): bool
+    {
+        if (!is_array($images)) {
+            return !empty($clean_images);
+        }
+
+        if (count($images) !== count($clean_images)) {
+            return true;
+        }
+
+        foreach ($images as $item) {
+            if (!is_array($item) || (empty($item['image']) && empty($item['image_id']))) {
+                return true;
+            }
+        }
+
+        return $clean_images !== self::storage_gallery(self::normalize_gallery($images));
     }
 }
