@@ -817,6 +817,9 @@
 }
 
 .element-volunteer {
+  padding: 56px 0;
+  background-color: #D7D7D7;
+
   &__gallery {
     .swiper-slide {
       width: 28.4rem;
@@ -855,6 +858,8 @@
 }
 
 .element-contact {
+  margin-top: 5.6rem;
+
   @media (min-width: 1200px) {
     margin-bottom: 8.4rem;
   }
